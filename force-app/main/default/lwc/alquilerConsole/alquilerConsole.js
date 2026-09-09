@@ -57,7 +57,7 @@ export default class AlquilerConsole extends LightningElement {
             { label: 'Fecha de Inicio', value: 'VRT_DAT_InitialDate__c' },
             { label: 'Fecha de Finalización', value: 'VRT_DAT_FinalDate__c' },
             { label: 'Número de Alquiler', value: 'Name' }
-        ];VRT_Vehicle__c
+        ];
     }
 
     get opcionesPicklistFiltro() {

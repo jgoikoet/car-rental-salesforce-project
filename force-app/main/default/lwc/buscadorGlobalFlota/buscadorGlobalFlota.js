@@ -1,4 +1,3 @@
-
 import { LightningElement } from 'lwc';
 import searchVehicles from '@salesforce/apex/VRT_CLS_LWC_SearchVehicles.searchVehicles';
 import searchVehicle from '@salesforce/apex/VRT_CLS_LWC_SearchVehicles.searchVehicle';

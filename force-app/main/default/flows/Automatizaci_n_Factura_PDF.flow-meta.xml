@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Genera una factura PDF badada en la pagina de Visulforce &quot;FacturaRentalPDF&quot; pasando los datos a binario y haciendo mas hostias que tengo que aclararme...</description>
+        <name>Generar_Factura_PDF</name>
+        <label>Generar Factura PDF</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>VRT_CLS_RentalPDFGenerator</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>rentalIds</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+                <inputConfiguratorMode>Resource</inputConfiguratorMode>
+            </value>
+        </inputParameters>
+        <nameSegment>VRT_CLS_RentalPDFGenerator</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <apiVersion>67.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>Este flow llama a la clase VRT_CLS_RentalPDFGenerator que crea una factura cuando el alquiler pasa a estado &quot;Completado&quot; y lo relaciona con el registro correspondiente (o deberia!)</description>
+    <environments>Default</environments>
+    <interviewLabel>Automatización Factura PDF {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Automatización Factura PDF</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Generar_Factura_PDF</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>VRT_SEL_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Completado</stringValue>
+            </value>
+        </filters>
+        <object>VRT_Rental__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

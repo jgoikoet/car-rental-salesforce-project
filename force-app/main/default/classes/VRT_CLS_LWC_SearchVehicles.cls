@@ -1,5 +1,3 @@
-
-
 public with sharing class VRT_CLS_LWC_SearchVehicles {
     
     
