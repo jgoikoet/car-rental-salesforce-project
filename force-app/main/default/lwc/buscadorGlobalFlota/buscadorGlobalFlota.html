@@ -1,0 +1,113 @@
+<template>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-3" >           
+            <lightning-card title="Buscador Vehículos" icon-name="custom:custom31">
+                <div class="slds-var-p-horizontal_medium slds-var-p-bottom_medium">
+                    <lightning-input
+                        name="buscadorVehiculos"
+                        label="Buscar vehículo"
+                        placeholder="Busca por marca, modelo o matrícula......"
+                        onchange={handleSearch}>
+                    </lightning-input>
+                </div>
+
+                <template lwc:if={mostrarSugerencias}>
+
+                    <div class="slds-dropdown slds-dropdown_fluid" style="margin-top: 2px;">
+                            <ul class="slds-dropdown__list" role="menu">
+                                <template for:each={sugerencias} for:item="opcion">
+                                    <li key={opcion.Id} class="slds-dropdown__item" role="presentation">
+                                        <a href="#" role="menuitem" onclick={handleSelect} data-id={opcion.id}>
+                                            <span class="slds-truncate" title={opcion.texto}>{opcion.texto}</span>
+                                        </a>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    
+                </template>
+            </lightning-card>
+        </div>
+    </div>
+
+
+<!-- Ventanuca Modal -->
+
+    <template lwc:if={showVehicle}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Cabecera -->
+                <header class="slds-modal__header slds-theme_info slds-theme_alert-texture">
+                    <h2 class="slds-text-heading_medium">Detalle Vehiculo</h2>
+                </header>
+
+                <!-- Mueve tu body -->
+                <div class="slds-modal__content slds-var-p-around_medium">
+                    <template lwc:if={vehCargado}>                       
+                        <div class="slds-grid slds-wrap">   
+                            <div class="slds-box slds-p-around_none slds-theme_shade slds-size_1-of-1">             
+                                <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small slds-grid_vertical">
+                                    <h1 class="slds-text-heading_medium slds-var-m-top_auto">{vehiculo.VRT_TXT_Brand__c} {vehiculo.VRT_TXT_Model__c}</h1>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                    <p><img src={vehImgURL} alt={vehiculo.Name} class="slds-var-m-right_medium"
+                                        style="width: 300px; height: auto; border: 1px solid black;" /></p>
+                                </div>
+                            </div>
+                                
+                                <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                    <STRONG>Matricula: </STRONG>{vehiculo.VRT_TXT_LicensePlate__c}
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                    <STRONG>Motor : </STRONG>{vehiculo.VRT_SEL_EnergyType__c}
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                    <STRONG>Kilometros: </STRONG>{vehiculo.VRT_NUM_Mileage__c}
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                    <STRONG>Numero de usos : </STRONG>{vehiculo.VRT_NUM_Usage__c}
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                    <STRONG>Disponibilidad: </STRONG>{vehiculo.VRT_SEL_Status__c}
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                    <STRONG>Estado: </STRONG>{vehiculo.VRT_SEL_Condition__c}
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                    <STRONG>Disponible: </STRONG>{vehiculo.VRT_FLG_Available__c}
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                    <STRONG>Necesita Inspección : </STRONG>{vehiculo.VRT_FLG_NeedsInspection__c}
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                    <STRONG>Numero de pasajeros: </STRONG>{vehiculo.VRT_NUM_Passengers__c}
+                                </div>
+                                <!-- <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                    <STRONG>Necesita Inspección : </STRONG>{vehiculo.VRT_FLG_NeedsInspection__c}
+                                </div> -->
+                                
+                        </div>                   
+                    </template>
+                    <template lwc:else>
+                        <lightning-spinner 
+                            alternative-text="Cargando..." 
+                            size="medium" 
+                            variant="brand">
+                        </lightning-spinner>
+                    </template>
+
+                </div>
+                
+                <!-- Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cerrar" onclick={closeVehicleDetail}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+</template>

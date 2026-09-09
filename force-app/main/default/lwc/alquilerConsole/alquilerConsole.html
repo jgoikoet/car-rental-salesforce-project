@@ -1,0 +1,316 @@
+<template>
+    <lightning-card title="Gestión de alquileres" icon-name="custom:custom14">
+        <div class="slds-var-m-around_medium">
+            <!-- CONTENEDOR DE BOTONES -->
+            <div class="slds-flex">
+                <!-- <lightning-button variant="brand" label="Alquileres activos" onclick={openAlquileresActivos}
+                    class="slds-var-m-right_small">
+                </lightning-button> -->
+                <lightning-button variant="success" label="Nuevo alquiler" onclick={openNewAlquiler}>
+                </lightning-button>
+            </div><br>
+
+            <!-- Lista alquileres activos -->
+            <div class="slds-box">
+
+                <div class="slds-m-bottom_none">
+                    <h2 class="slds-text-heading_medium slds-font-weight_bold">Alquileres Activos</h2>
+                </div>
+                    
+                    <div class="slds-grid slds-gutters"> 
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-combobox
+                                name="criterio"
+                                label="Ordenar por:"
+                                value={criterioOrdenacion}
+                                placeholder="Selecciona un criterio..."
+                                options={opcionesPicklistOrden}
+                                onchange={sortAlquileres}>
+                            </lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-combobox
+                                name="filtro"
+                                label="Filtrar por:"
+                                value={filtroAlquileres}
+                                placeholder="Filtrar por:"
+                                options={opcionesPicklistFiltro}
+                                onchange={filterAlquileres}>
+                            </lightning-combobox>
+                        </div>       
+                    </div><br>
+                    
+                
+
+                <div class="slds-grid slds-truncate slds-m-bottom_none">
+                    <div class="slds-col slds-size_1-of-4 slds-grid slds-grid_align-center">
+                        <strong>Numero</strong>
+                    </div>
+                    <div class="slds-col slds-size_1-of-4">
+                        <strong>Fecha Inicio</strong>
+                    </div>
+                    <div class="slds-col slds-size_1-of-4">
+                        <strong>Fecha Fin</strong>
+                    </div>
+                    <div class="slds-col slds-size_1-of-4">
+                        <strong>Coste</strong>
+                    </div>
+                </div>
+                <template for:each={filteredAlquileres} for:item="alquiler">
+                    <div key={alquiler.Id} class="slds-col slds-size_1-of-1 slds-m-bottom_none slds-truncate">
+                        <div class="slds-grid slds-truncate">                      
+                            <div class="slds-col slds-size_1-of-4">
+                                <lightning-button-icon 
+                                    class="slds-m-right_small"
+                                    icon-name="utility:preview"
+                                    variant="bare"
+                                    alternative-text="Ver registro" 
+                                    title="Ver registro"
+                                    data-name={alquiler.Name}
+                                    onclick={openAlquilererDetail}>
+                                </lightning-button-icon>                                
+                                {alquiler.Name}
+                            </div>
+                            <div class="slds-col slds-size_1-of-4">
+                                {alquiler.VRT_DAT_InitialDate__c}
+                            </div>
+                            <div class="slds-col slds-size_1-of-4">
+                                {alquiler.VRT_DAT_FinalDate__c}
+                            </div>
+                            <div class="slds-col slds-size_1-of-4">
+                                {alquiler.VRT_DIV_TotalCost__c}€
+                            </div>
+                            
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+        </div>
+    </lightning-card>
+
+    <!-- VENTANA MODAL 1 -->
+    <template lwc:if={alquilerDetail}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Cabecera -->
+                <header class="slds-modal__header slds-theme_info slds-theme_alert-texture">
+                    <h2 class="slds-text-heading_medium">Detalle Alquiler</h2>
+                </header>
+
+                <!-- Mueve tu body -->
+                <div class="slds-modal__content slds-var-p-around_medium">
+
+                    <template lwc:if={cargadoRentDetail}>
+                        <template lwc:if={detailedRent}>
+                            <div class="slds-box slds-p-around_none slds-theme_shade">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                        <STRONG>Numero de alquiler: </STRONG>{detailedRent.Name}
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                        <STRONG>Cuenta: </STRONG>{detailedAcount.Name}
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                        <STRONG>Fecha de inicio: </STRONG>{detailedRent.VRT_DAT_InitialDate__c}
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                        <STRONG>Fecha de finalización: </STRONG>{detailedRent.VRT_DAT_FinalDate__c}
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                        <STRONG>Estado: </STRONG>{detailedRent.VRT_SEL_Status__c}
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                        <STRONG>Estado de pago: </STRONG>{detailedRent.VRT_SEL_PaymentStatus__c}
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                        <STRONG>Coste: </STRONG>{detailedRent.VRT_DIV_TotalCost__c}€
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                        <!-- columna vacia -->
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                    <p><STRONG>Vehiculo: </STRONG>{detailedVehicle.Name}</p>
+                                    <p><img src={detailedURL} alt={detailedVehicle.Name} class="slds-var-m-right_medium"
+                                                    style="width: 200px; height: auto; border: 1px solid black;" /></p>
+                                </div>                     
+                        </template>
+                        <template lwc:else>
+                            <p class="slds-text-color_error">Ha habido un error en la carga de datos. Te jodes.</p>
+                        </template>
+                    </template>
+                    <template lwc:else>
+                        <lightning-spinner 
+                            alternative-text="Cargando..." 
+                            size="medium" 
+                            variant="brand">
+                        </lightning-spinner>
+                    </template>
+
+                </div>
+                
+                <!-- Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cerrar" onclick={closeAlquilerDetail}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+
+    <!-- VENTANA MODAL 2 -->
+    <template lwc:if={nuevoAlquiler}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Header -->
+                <header class="slds-modal__header slds-theme_info slds-theme_alert-texture">
+                    <h2 class={colorTextoCabecera}>{newRentHeadText}</h2>
+                </header>
+                <!-- Content -->
+                 <!-- Completando campos Alquiler -->
+                <template lwc:if={seteandoAlquiler}>
+                    <div class="slds-modal__content slds-var-p-around_medium">
+                        <div class="slds-grid slds-wrap">
+                        
+                            <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                <lightning-input 
+                                    type="date" 
+                                    label="Fecha Inicio alquiler" 
+                                    name="fechaAlta"
+                                    onchange={setFechaInicio}>
+                                </lightning-input>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                <lightning-input 
+                                    type="date" 
+                                    label="Fecha fin Alquiler" 
+                                    name="fechaAlta"
+                                    onchange={setFechaFin}>
+                                </lightning-input>
+                            </div>
+                            <div class={fechasMensajeClass}>
+                                {fechasMensaje}
+                            </div>
+                        </div>
+                        <!-- Se muestra lista de coches disponibles si las fechas son correctas -->
+                        <template lwc:if={cochesDisponibles}>
+                            <!-- Se ha seleccionado un vehículo de la lista -->
+                            <template lwc:if={selectedCar}>
+                                <div class="slds-grid slds-wrap slds-box slds-box_x-small slds-theme_shade slds-grid_vertical-stretch">
+                                    
+                                    <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small">
+                                        <p>
+                                            <img src={selectedCar.miUrl} alt={selectedCar.VRT_TXT_Model__c} class="slds-var-m-right_medium"
+                                                style="width: 300px; height: auto; border: 1px solid black;" />
+                                        </p>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-var-p-around_x-small slds-grid slds-grid_vertical" 
+                                        style="height: 100%; justify-content: space-between;">
+                                        
+                                        <div>  
+                                            <p> <strong>Marca: </strong> {selectedCar.VRT_TXT_Brand__c}</p>
+                                            <p> <strong>Modelo: </strong> {selectedCar.VRT_TXT_Model__c}</p>
+                                            <p> <strong>Condicion: </strong> {selectedCar.VRT_SEL_Condition__c}</p>
+                                            <p>
+                                                <lightning-input 
+                                                    type="checkbox" 
+                                                    label="Pago al momento" 
+                                                    checked={pagado} 
+                                                    onchange={estadoPago}>
+                                                </lightning-input>
+                                            </p>
+                                        </div> 
+
+                                        <div class="slds-text-align_center slds-var-p-top_large">
+                                            <lightning-button class="slds-button_small" variant="success" label="Crear alquiler" onclick={crearAlquiler}></lightning-button>
+                                            
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </template>
+                            <!-- Todavía no se ha seleccionado un vehículo de la lista -->
+                            <template lwc:else>
+                                <p>{hayVehiculos}</p>
+                            </template>
+
+                                <div class="slds-grid slds-wrap">
+
+                                    <template for:each={cochesDisponibles} for:item="coche">
+                                        <div key={coche.Id} class="slds-col slds-size_1-of-4 slds-var-p-around_x-small">
+                                            <a href="#" data-id={coche.Id} onclick={selectCar}
+                                                    >
+                                                <p><img src={coche.miUrl} alt={coche.VRT_TXT_Model__c} class="slds-var-m-right_medium"
+                                                    style="width: 100px; height: auto; border: 1px solid black;" /></p>
+                                            </a>
+                                            <p>{coche.VRT_TXT_Brand__c}<strong> {coche.VRT_TXT_Model__c}</strong></p>
+                                            
+                                        </div>
+                                    </template>
+                                </div>
+                        </template>
+                    </div>
+                </template>
+                <!-- Tras pulsar 'Crear Alquiler' -->
+                <template lwc:else>
+                    <!-- Creacion  de registro de alquiler exitoso -->
+                    <template lwc:if={alquilerCompletado}>
+                        <template lwc:if={alquilerExitoso}>
+                            <div class="slds-modal__content slds-var-p-around_medium">
+                                <p><STRONG>Fecha de inicio del alquiler: </STRONG>{fechaInicio}</p>
+                                <p><STRONG>Fecha de finalización del alquiler: </STRONG>{fechaFin}</p>
+                                <p><STRONG>Estado del alquiler: </STRONG>{estadoAlquiler}</p>
+                                <p><STRONG>Estado de pago: </STRONG>{estadoPagoText}</p>
+                                <p><STRONG>Vehiculo: </STRONG>{selectedCarName}</p>
+                                <p><STRONG>Precio final: </STRONG>{coste}€</p>
+                                <p><STRONG>Descuento: </STRONG>{descuento}€</p>
+
+                                <template lwc:if={pagado}>
+                                    
+                                </template>
+                                <template lwc:else>
+                                    <br>
+                                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert">
+                                        <h2 style="color: black; font-weight: bold;">¡ATENCIÓN! Pago no realizado. El pago se debe efectuer antes de la entrega del vehículo. </h2>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                        <!-- Creacion  de registro de alquiler fracasoso -->
+                        <template lwc:else>
+                            <div class="slds-modal__content slds-var-p-around_medium">
+                                <p class="slds-text-color_error">Se ha producido un error en la creación del alquiler</p>
+                                <p class="slds-text-color_error">{mensajeError}</p>
+                            </div>
+                        </template>
+                    </template>
+                    <template lwc:else>
+                        <lightning-spinner 
+                            alternative-text="Cargando..." 
+                            size="medium" 
+                            variant="brand">
+                        </lightning-spinner>
+                    </template>
+                </template>
+
+                <!-- Footer -->
+                <footer class="slds-modal__footer">
+                    <template lwc:if={seteandoAlquiler}>
+                        <div class="slds-col_bump-right slds-text-align_left">
+                            <span class="slds-text-heading_medium">Coste: {coste}€ </span><br>
+                            <span class="slds-text-heading_micro">Descuento: {descuento}€ </span>
+                        </div>
+                    </template>
+                    <lightning-button variant="brand" label="Cerrar" onclick={closeNewAlquiler}></lightning-button>
+                        
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+
+</template>

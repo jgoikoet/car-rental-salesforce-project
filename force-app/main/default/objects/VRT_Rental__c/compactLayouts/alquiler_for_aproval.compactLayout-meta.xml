@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>alquiler_for_aproval</fullName>
+    <fields>VRT_DIV_TotalCost__c</fields>
+    <fields>VRT_LKP_Account__c</fields>
+    <fields>VRT_LKP_Vehicle__c</fields>
+    <fields>VRT_FOR_Duration__c</fields>
+    <label>alquiler for aproval</label>
+</CompactLayout>
