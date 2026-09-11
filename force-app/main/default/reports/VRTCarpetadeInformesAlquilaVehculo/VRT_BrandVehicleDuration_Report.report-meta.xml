@@ -59,8 +59,6 @@
     <showSubTotals>false</showSubTotals>
     <timeFrameFilter>
         <dateColumn>VRT_Vehicle__c.Alquileres__r$VRT_DAT_InitialDate__c</dateColumn>
-        <endDate>2024-04-16</endDate>
         <interval>INTERVAL_CUSTOM</interval>
-        <startDate>2024-04-16</startDate>
     </timeFrameFilter>
 </Report>
