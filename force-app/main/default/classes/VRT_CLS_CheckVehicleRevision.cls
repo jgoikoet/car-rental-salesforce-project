@@ -16,9 +16,12 @@ public class VRT_CLS_CheckVehicleRevision implements Database.Batchable<sObject>
         // Obtenemos el año actual
         Integer thisYear = Date.today().year();
         
-        
         for(SObject s : scope) {
             VRT_Vehicle__c veh = (VRT_Vehicle__c) s;
+
+            // *p* Proteccion para evitar error si no hay fecha de fabricación
+            if(veh.VRT_DAT_ManufacturedYear__c == null){continue;}
+
             // Obtenemos los años transcurridos desde que se fabricó
             Integer yearsPassed = thisYear -  veh.VRT_DAT_ManufacturedYear__c.year();
             // Si es un coche, comprueba que hayan pasado 4 años
@@ -36,5 +39,5 @@ public class VRT_CLS_CheckVehicleRevision implements Database.Batchable<sObject>
     public void finish(Database.BatchableContext bc) {
         
     }
-    
+ 
 }
