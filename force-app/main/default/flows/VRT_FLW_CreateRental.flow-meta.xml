@@ -56,6 +56,9 @@
         <connector>
             <targetReference>generateReminder</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Error_en_el_alquiler</targetReference>
+        </faultConnector>
         <inputReference>AlquilerRecord</inputReference>
     </recordCreates>
     <recordCreates>
@@ -65,6 +68,30 @@
         <locationY>566</locationY>
         <inputReference>TaskRecord</inputReference>
     </recordCreates>
+    <screens>
+        <name>Error_en_el_alquiler</name>
+        <label>Error en el alquiler</label>
+        <locationX>578</locationX>
+        <locationY>350</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Error_Display</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(250, 69, 28); font-size: 16px;&quot;&gt;ERROR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(247, 49, 49);&quot;&gt;{!$Flow.FaultMessage}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
     <screens>
         <name>ReltanFormScreen</name>
         <label>Alquiler Form</label>

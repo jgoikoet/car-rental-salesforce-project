@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VRT_DAT_LastITV__c</fullName>
+    <description>Ultima fecha en la que se ha realizado la ITV</description>
+    <label>Fecha ultima ITV</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>
