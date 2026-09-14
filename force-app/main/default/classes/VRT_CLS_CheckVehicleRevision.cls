@@ -111,7 +111,7 @@ public class VRT_CLS_CheckVehicleRevision implements Database.Batchable<sObject>
                 }
                 //*p* Si ha pasado mas de 2 años desde la ultima ITV y es moto
                 if(yearsPassedFromLastITV >= 2 && veh.VRT_SEL_VehicleType__c == 'Moto'){
-                        veh.VRT_FLG_NeedsInspection__c = true;
+                      //*p*  veh.VRT_FLG_NeedsInspection__c = true;
                         system.debug('Esta moto no tiene fecha de fabricación (o si) y su ultima ITV data de hace mas de dos años'+
                         '\nSe actualiza el campo de necesita ITV a TRUE'
                         + '\n *******************************************************************\n');
@@ -122,7 +122,7 @@ public class VRT_CLS_CheckVehicleRevision implements Database.Batchable<sObject>
 
             //*p* Vehiculos sin fecha de ultima ITV
 
-            // *p* Proteccion para evitar error si no hay fecha de fabricación
+            //*p* Proteccion para evitar error si no hay fecha de fabricación
             if(veh.VRT_DAT_ManufacturedYear__c == null){continue;}
 
             
