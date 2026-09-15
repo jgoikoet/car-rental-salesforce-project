@@ -13,6 +13,8 @@ public class VRT_TRG_RentalHandler {
      * @param	triggerNew: list of rentals inserted
      */
     public void onBeforeInsert(List<VRT_Rental__c> triggerNew) {
+
+        VRT_CLS_CheckVehicleDataDisponibility.checkDisponibility(triggerNew);
         VRT_TRG_RentalHandlerHelper.calculateTotalCost(triggerNew);
     }
     

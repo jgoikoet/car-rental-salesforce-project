@@ -35,7 +35,7 @@ public with sharing class VRT_CLS_CheckVehicleDataDisponibility {
                 for(VRT_Rental__c rent : vehicleRentals){
                     if (newRental.VRT_DAT_InitialDate__c < rent.VRT_DAT_FinalDate__c &&
                     newRental.VRT_DAT_FinalDate__c > rent.VRT_DAT_InitialDate__c){
-                        newRental.addError('Este vehículo no está disponible en esas fechas');
+                        newRental.addError('Este vehículo no está disponible en esas flechas');
                     }
                 }
             }

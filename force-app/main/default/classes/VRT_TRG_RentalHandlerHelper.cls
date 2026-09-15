@@ -16,7 +16,7 @@ public class VRT_TRG_RentalHandlerHelper {
         VRT_CLS_RentalHAndlerHelperTotalCost cost = new VRT_CLS_RentalHAndlerHelperTotalCost();
 
         system.debug('Me caguen Soria!!!!!!');
-        VRT_CLS_CheckVehicleDataDisponibility.checkDisponibility(triggerNew);
+        //VRT_CLS_CheckVehicleDataDisponibility.checkDisponibility(triggerNew);
         cost.calculateCost(triggerNew);
             
     }

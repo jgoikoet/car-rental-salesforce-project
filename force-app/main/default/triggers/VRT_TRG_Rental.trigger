@@ -6,7 +6,9 @@
  *              08/04/2024 - AMADRIDN - Added comments
  */
 trigger VRT_TRG_Rental on VRT_Rental__c (before insert, after insert, before update, after update) {
+    
     VRT_TRG_RentalHandler rentalHandler = new VRT_TRG_RentalHandler();
+    
     if (trigger.isAfter) {
         if (trigger.isInsert) {
             rentalHandler.onAfterInsert(trigger.new);
