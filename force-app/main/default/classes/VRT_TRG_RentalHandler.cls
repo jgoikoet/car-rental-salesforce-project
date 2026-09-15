@@ -14,8 +14,8 @@ public class VRT_TRG_RentalHandler {
      */
     public void onBeforeInsert(List<VRT_Rental__c> triggerNew) {
 
-        VRT_CLS_CheckVehicleDataDisponibility.checkDisponibility(triggerNew);
         VRT_TRG_RentalHandlerHelper.calculateTotalCost(triggerNew);
+        VRT_CLS_CheckVehicleDataDisponibility.checkDisponibility(triggerNew);
     }
     
     
@@ -84,7 +84,7 @@ public class VRT_TRG_RentalHandler {
             VRT_Rental__c oldRental = oldRentalsMap.get(rentalId);
             if (oldRental.VRT_SEL_Status__c == 'Cancelado' && newRental.VRT_SEL_Status__c != 'Cancelado'){
                 rentalsToCheck.add(newRental);
-                //newRental.addError('Este vehículo no está disponible en esas fechas hijos de puta');
+                //newRental.addError('Este vehículo no está disponible en esas fechas');
             }
         }
         if (!rentalsToCheck.isEmpty()){

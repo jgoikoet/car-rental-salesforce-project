@@ -5,12 +5,16 @@
  * @history		04/04/2024 - AMADRIDN - Created class
  * 				08/04/2024 - AMADRIDN - Added comments
  */
+
+//*p* Aqui comprobamos que el estado del vehículo se actualiza correctamente segun el numero de usos.
+
 @isTest
 public class VRT_TRG_Rental_Test {
     
-    @testSetup static void setup() {
+    @testSetup
+    static void setup() {
 
-        system.debug('ME CAGON SORIA');
+        //system.debug('ME CAGON SORIA');
  		// Create common test accounts
         List<Account> testAccts = new List<Account>();
         for(Integer i=0;i<2;i++) {
@@ -58,7 +62,8 @@ public class VRT_TRG_Rental_Test {
         insert testVehics; 
 	}
     
-	@isTest static void testUpdateConditionVehicleRecienFabricado() {
+	@isTest
+    static void testUpdateConditionVehicleRecienFabricado() {
         // Create a rental
 		VRT_Rental__c rental = createRentalTest(0);
         system.debug('ME CAGON SORIA');
@@ -71,7 +76,8 @@ public class VRT_TRG_Rental_Test {
         System.assertEquals('Recién fabricado', vehUpdated.VRT_SEL_Condition__c);
     }
     
-    @isTest static void testUpdateConditionVehicleCasiNuevo() {
+    @isTest
+    static void testUpdateConditionVehicleCasiNuevo() {
         // Create a rental
         VRT_Rental__c rental = createRentalTest(1);
         
@@ -84,7 +90,8 @@ public class VRT_TRG_Rental_Test {
         System.assertEquals('Casi nuevo', vehUpdated.VRT_SEL_Condition__c);
     }
     
-    @isTest static void testUpdateConditionVehicleAlgoDesgastado() {
+    @
+    isTest static void testUpdateConditionVehicleAlgoDesgastado() {
         // Create a rental
         VRT_Rental__c rental = createRentalTest(2);
         
@@ -97,7 +104,8 @@ public class VRT_TRG_Rental_Test {
         System.assertEquals('Algo desgastado', vehUpdated.VRT_SEL_Condition__c);
     }
     
-    @isTest static void testUpdateConditionVehicleBastanteDesgastado() {
+    @
+    isTest static void testUpdateConditionVehicleBastanteDesgastado() {
         // Create a rental
         VRT_Rental__c rental = createRentalTest(3);
         
@@ -110,7 +118,8 @@ public class VRT_TRG_Rental_Test {
         System.assertEquals('Bastante desgastado', vehUpdated.VRT_SEL_Condition__c);
     }
     
-    @isTest static void testUpdateConditionVehicleDeplorable() {
+    @
+    isTest static void testUpdateConditionVehicleDeplorable() {
         // Create a rental
         VRT_Rental__c rental = createRentalTest(4);
         
@@ -123,7 +132,8 @@ public class VRT_TRG_Rental_Test {
         System.assertEquals('Deplorable', vehUpdated.VRT_SEL_Condition__c);
     }
     
-    @isTest static void testUpdateVehicleRentalCompleted() {
+    @isTest
+    static void testUpdateVehicleRentalCompleted() {
         // Create a rental
         VRT_Rental__c rental = createRentalTest(0);
         insert rental;
