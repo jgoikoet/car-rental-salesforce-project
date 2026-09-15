@@ -1,4 +1,4 @@
-public with sharing class AvailableAlquilers {
+public with sharing class VRT_CLS_GetActiveRentals {
     
     @AuraEnabled(cacheable=true)
     public static List<VRT_Rental__c> getAlquileresActivos(Id accId){

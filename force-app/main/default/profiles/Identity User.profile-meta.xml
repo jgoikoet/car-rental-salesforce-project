@@ -126,7 +126,7 @@
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
-        <apexClass>AvailableAlquilers</apexClass>
+        <apexClass>VRT_CLS_GetActiveRentals</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
