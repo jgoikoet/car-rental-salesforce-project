@@ -60,28 +60,28 @@ public with sharing class VRT_CLS_CheckVehicleDataDisponibility {
 
         for (Id vehId : rentalsByVehicle.keySet()){
 
-            system.debug('Lista antes en bucle---------------------------------------------------');
+           // system.debug('Lista antes en bucle---------------------------------------------------');
             List<VRT_Rental__c> sameVehicleRents = rentalsByVehicle.get(vehId);
             VRT_Vehicle__c vehicle =[SELECT Name FROM VRT_Vehicle__c WHERE Id = :sameVehicleRents[0].VRT_LKP_Vehicle__c];       
 
-            for(VRT_Rental__c rent : sameVehicleRents){
+           // for(VRT_Rental__c rent : sameVehicleRents){
                             
-                system.debug(vehicle.Name + ' coste = ' + rent.VRT_DIV_TotalCost__c + 
-                '     del ' + rent.VRT_DAT_InitialDate__c + ' al ' + rent.VRT_DAT_FinalDate__c);       
-            }
+            //    system.debug(vehicle.Name + ' coste = ' + rent.VRT_DIV_TotalCost__c + 
+           //     '     del ' + rent.VRT_DAT_InitialDate__c + ' al ' + rent.VRT_DAT_FinalDate__c);       
+           // }
 
             //filterRepeated(sameVehicleRents);
             if (sameVehicleRents.size() > 1){
                 sameVehicleRents = filterRepeated(sameVehicleRents);
                 //rentalsByVehicle.put(vehId, sameVehicleRents);
             }
-            system.debug('Lista despues en bucle------------------------------------------------');
+            //system.debug('Lista despues en bucle------------------------------------------------');
             for (VRT_Rental__c rent : sameVehicleRents){
-                system.debug(vehicle.Name + ' coste = ' + rent.VRT_DIV_TotalCost__c + 
-                '     del ' + rent.VRT_DAT_InitialDate__c + ' al ' + rent.VRT_DAT_FinalDate__c);
+               // system.debug(vehicle.Name + ' coste = ' + rent.VRT_DIV_TotalCost__c + 
+              //  '     del ' + rent.VRT_DAT_InitialDate__c + ' al ' + rent.VRT_DAT_FinalDate__c);
                 filteredRentals.add(rent);
             }
-            system.debug('**********************************************************************************');
+           // system.debug('**********************************************************************************');
         }
 
         system.debug('Lista Final filteredRentals-------------------------------------');

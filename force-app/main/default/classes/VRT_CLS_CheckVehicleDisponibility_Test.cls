@@ -11,7 +11,7 @@ public  class VRT_CLS_CheckVehicleDisponibility_Test {
         List<VRT_Vehicle__c> testVehics = new List<VRT_Vehicle__c>();
         List<Account> testAccounts = new List<Account>();
 
-        //*p* creamos vehiculos para los tests
+        //*p* creamos vehiculos (coches) para los tests
         for(Integer i=0;i < vehiclesNumber; i++) {
             VRT_Vehicle__c veh = new VRT_Vehicle__c (
                 VRT_TXT_ExternalId__c = 'TestVeh'+i, 
@@ -24,9 +24,22 @@ public  class VRT_CLS_CheckVehicleDisponibility_Test {
                 VRT_NUM_Passengers__c = 5,
                 VRT_FLG_Available__c = true
             );
-
 			testVehics.add(veh);
         }
+
+         //*p* creamos tambien una moto
+         VRT_Vehicle__c veh = new VRT_Vehicle__c (
+                VRT_TXT_ExternalId__c = 'TestMoto', 
+                VRT_TXT_LicensePlate__c = 'TST0001',
+                VRT_TXT_Brand__c = 'Bultaco', 
+                VRT_TXT_Model__c = 'Pelarda',
+                VRT_SEL_VehicleType__c = 'Moto', 
+                VRT_SEL_Status__c = 'Listo',  
+                VRT_SEL_EnergyType__c = 'Diesel', 
+                VRT_NUM_Passengers__c = 3,
+                VRT_FLG_Available__c = true);
+        testVehics.add(veh);
+
         insert testVehics;
 
         //*p* creamos cuentas para los tests
@@ -44,6 +57,7 @@ public  class VRT_CLS_CheckVehicleDisponibility_Test {
 
         List<Account> testAccounts = [SELECT Id, Name FROM Account];
         List<VRT_Vehicle__c> testVehics = [SELECT Id, Name FROM VRT_Vehicle__c];
+        VRT_Vehicle__c moto =  [SELECT Id, Name FROM VRT_Vehicle__c WHERE  VRT_SEL_VehicleType__c = 'Moto' LIMIT 1];
         List<VRT_Rental__c> testRentals = new List<VRT_Rental__c>();
 
         
@@ -62,7 +76,7 @@ public  class VRT_CLS_CheckVehicleDisponibility_Test {
 
         }
 
-        //*p* creamos varios alquileres con vehiculos repetidos y distintos precios
+        //*p* creamos varios alquileres con vehiculos repetidos y distintos precios y fechas solapadas
         
         for (Integer i = 0; i < 5; i++){
 
@@ -86,23 +100,41 @@ public  class VRT_CLS_CheckVehicleDisponibility_Test {
         }
 
         
-        //*p* un alquiler no solapado con vehiculo repetido
+        //*p* un alquiler no solapado con vehiculo repetido y en temporada alta OJOOOOO!!! esto funciona apartir de marzo
         VRT_Rental__c newRental= new VRT_Rental__c();
         newRental.VRT_LKP_Account__c = testAccounts[1].Id;
         newRental.VRT_LKP_Vehicle__c = testVehics[1].Id;
-        newRental.VRT_DAT_InitialDate__c = Date.Today() + 100;
-        newRental.VRT_DAT_FinalDate__c = Date.Today()+102;
+        newRental.VRT_DAT_InitialDate__c =Date.newInstance(Date.Today().year(), 1, 2);
+        newRental.VRT_DAT_FinalDate__c = Date.newInstance(Date.Today().year(), 1, 4);
         newRental.VRT_SEL_Status__c = 'Reservado';
         testRentals.add(newRental);
 
-        //*p* un alquiler no solapado antiguo y completado
+        //*p* un alquiler no solapado antiguo y completado y en temporada media
         VRT_Rental__c newRentalOld= new VRT_Rental__c();
         newRentalOld.VRT_LKP_Account__c = testAccounts[0].Id;
         newRentalOld.VRT_LKP_Vehicle__c = testVehics[1].Id;
-        newRentalOld.VRT_DAT_InitialDate__c = Date.Today() - 100;
-        newRentalOld.VRT_DAT_FinalDate__c = Date.Today()-98;
+        newRentalOld.VRT_DAT_InitialDate__c = Date.newInstance(Date.Today().year(), 2, 2);
+        newRentalOld.VRT_DAT_FinalDate__c = Date.newInstance(Date.Today().year(), 2, 5);
         newRentalOld.VRT_SEL_Status__c = 'Completado';
         testRentals.add(newRentalOld);
+
+        //*p* un alquiler de moto para cubrir mas codigo y en temporada baja
+        VRT_Rental__c newRentalMoto= new VRT_Rental__c();
+        newRentalMoto.VRT_LKP_Account__c = testAccounts[0].Id;
+        newRentalMoto.VRT_LKP_Vehicle__c = Moto.Id;
+        newRentalMoto.VRT_DAT_InitialDate__c = Date.newInstance(Date.Today().year(), 3, 2);
+        newRentalMoto.VRT_DAT_FinalDate__c = Date.newInstance(Date.Today().year(), 3, 6);
+        newRentalMoto.VRT_SEL_Status__c = 'Completado';
+        testRentals.add(newRentalMoto);
+
+        //*p* un tercer alquiler completado de la misma cuenta para chequear codigo de descuento
+        VRT_Rental__c newRentalMotoB= new VRT_Rental__c();
+        newRentalMotoB.VRT_LKP_Account__c = testAccounts[0].Id;
+        newRentalMotoB.VRT_LKP_Vehicle__c = Moto.Id;
+        newRentalMotoB.VRT_DAT_InitialDate__c = Date.newInstance(Date.Today().year(), 4, 2);
+        newRentalMotoB.VRT_DAT_FinalDate__c = Date.newInstance(Date.Today().year(), 4, 6);
+        newRentalMotoB.VRT_SEL_Status__c = 'Completado';
+        testRentals.add(newRentalMotoB);
 
         //------------------------------------------------------------------------------------------------
         Test.startTest();
@@ -113,9 +145,9 @@ public  class VRT_CLS_CheckVehicleDisponibility_Test {
         List<VRT_Rental__c> testRentalsB = new List<VRT_Rental__c>();
         VRT_Rental__c newRentalB= new VRT_Rental__c();
         newRentalB.VRT_LKP_Account__c = testAccounts[0].Id;
-        newRentalB.VRT_LKP_Vehicle__c = testVehics[1].Id;
-        newRentalB.VRT_DAT_InitialDate__c = Date.Today() + 100;
-        newRentalB.VRT_DAT_FinalDate__c = Date.Today()+103;
+        newRentalB.VRT_LKP_Vehicle__c = Moto.Id;
+        newRentalB.VRT_DAT_InitialDate__c = Date.newInstance(Date.Today().year(), 4, 2);
+        newRentalB.VRT_DAT_FinalDate__c =  Date.newInstance(Date.Today().year(), 4, 6);
         newRentalB.VRT_SEL_Status__c = 'Reservado';
         testRentalsB.add(newRentalB);
 
@@ -131,7 +163,7 @@ public  class VRT_CLS_CheckVehicleDisponibility_Test {
         for(VRT_Rental__c rental : insertedRentals){
             system.debug(rental.Id + ' ' + rental.VRT_LKP_Vehicle__r.Name);
         }
-        System.assertEquals(11, insertedRentals.size(), 'Deberia haber '+ vehiclesNumber +' registros');
+        System.assertEquals(15, insertedRentals.size(), 'Deberia haber 15 registros');
     }
 
 }
