@@ -23,7 +23,7 @@ public with sharing class VRT_CLS_RentalHAndlerHelperTotalCost {
             vehicles.add(rent.VRT_LKP_Vehicle__c);
             accounts.add(rent.VRT_LKP_Account__c);
         }
-        
+        system.debug('*-*-*-*-***-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-accounts: '+ accounts.size());
         Map<Id, VRT_Vehicle__c> vehiclesType = new Map<Id, VRT_Vehicle__c>(
             [SELECT Id, VRT_SEL_VehicleType__c FROM VRT_Vehicle__c WHERE Id IN :vehicles]
             );

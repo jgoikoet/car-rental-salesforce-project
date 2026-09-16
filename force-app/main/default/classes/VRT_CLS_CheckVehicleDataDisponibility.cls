@@ -2,15 +2,6 @@ public with sharing class VRT_CLS_CheckVehicleDataDisponibility {
     
     private static List<VRT_Rental__c> filterRepeated(List<VRT_Rental__c> sameVehicleList){
 
-        // system.debug('******************************LISTA**************');
-        // VRT_Vehicle__c vehicle =[SELECT Name FROM VRT_Vehicle__c WHERE Id = :sameVehicleList[0].VRT_LKP_Vehicle__c];       
-        // for(VRT_Rental__c rent : sameVehicleList ){
-
-        //     system.debug(vehicle.Name + ' coste = ' + rent.VRT_DIV_TotalCost__c + 
-        //     '     del ' + rent.VRT_DAT_InitialDate__c + ' al ' + rent.VRT_DAT_FinalDate__c);
-           
-        // }
-        // system.debug('*************************************************');
 
         //*p* si dos alquileres de la lista se solapan en fechas dejamos el que da mas dinerin
 
@@ -21,27 +12,27 @@ public with sharing class VRT_CLS_CheckVehicleDataDisponibility {
         for (Integer j = 0; j < l - 1; j++){
             for(integer i = j + 1; i < l; i++)
             {
-                system.debug('j = '+ j);
-            //system.debug('jos de puta');
+                //system.debug('j = '+ j);
+                //system.debug('jos de puta');
                 if(sameVehicleList[j].VRT_DAT_InitialDate__c < sameVehicleList[i].VRT_DAT_FinalDate__c &&
                     sameVehicleList[j].VRT_DAT_FinalDate__c > sameVehicleList[i].VRT_DAT_InitialDate__c){
 
-                        
-
-                        system.debug(sameVehicleList[j].VRT_DIV_TotalCost__c +' merda ' + sameVehicleList[i].VRT_DIV_TotalCost__c);
+                        //system.debug(sameVehicleList[j].VRT_DIV_TotalCost__c +' merda ' + sameVehicleList[i].VRT_DIV_TotalCost__c);
                         
                         if (sameVehicleList[j].VRT_DIV_TotalCost__c == sameVehicleList[i].VRT_DIV_TotalCost__c){
-                            //sameVehicleList[j+1].addError('El vehiculo del alquiler se solapa en fechas con otro alquiler de la misma lista');
-                            system.debug('Costes Iguales');
+                            sameVehicleList[i].addError('El vehiculo del alquiler se solapa en fechas con otro alquiler de la misma lista');
+                            //system.debug('Costes Iguales');
                             sameVehicleList.remove(i);                            
                         }
                         else if(sameVehicleList[j].VRT_DIV_TotalCost__c > sameVehicleList[i].VRT_DIV_TotalCost__c){
-                            system.debug('Vale mas el primero');
+                            //system.debug('Vale mas el primero');
+                            sameVehicleList[i].addError('El vehiculo del alquiler se solapa en fechas con otro alquiler de la misma lista');
                             sameVehicleList.remove(i);         
                            
                         }
                         else{
-                            system.debug('Vale mas el segundo');
+                            //system.debug('Vale mas el segundo');
+                            sameVehicleList[j].addError('El vehiculo del alquiler se solapa en fechas con otro alquiler de la misma lista');
                             sameVehicleList.remove(j); 
                         }
                         l--;
@@ -69,17 +60,14 @@ public with sharing class VRT_CLS_CheckVehicleDataDisponibility {
 
         for (Id vehId : rentalsByVehicle.keySet()){
 
-            system.debug('Lista antes----------');
+            system.debug('Lista antes en bucle---------------------------------------------------');
             List<VRT_Rental__c> sameVehicleRents = rentalsByVehicle.get(vehId);
             VRT_Vehicle__c vehicle =[SELECT Name FROM VRT_Vehicle__c WHERE Id = :sameVehicleRents[0].VRT_LKP_Vehicle__c];       
 
             for(VRT_Rental__c rent : sameVehicleRents){
-                               
-
+                            
                 system.debug(vehicle.Name + ' coste = ' + rent.VRT_DIV_TotalCost__c + 
-                '     del ' + rent.VRT_DAT_InitialDate__c + ' al ' + rent.VRT_DAT_FinalDate__c);
-            
-            
+                '     del ' + rent.VRT_DAT_InitialDate__c + ' al ' + rent.VRT_DAT_FinalDate__c);       
             }
 
             //filterRepeated(sameVehicleRents);
@@ -87,7 +75,7 @@ public with sharing class VRT_CLS_CheckVehicleDataDisponibility {
                 sameVehicleRents = filterRepeated(sameVehicleRents);
                 //rentalsByVehicle.put(vehId, sameVehicleRents);
             }
-            system.debug('Lista despues----------');
+            system.debug('Lista despues en bucle------------------------------------------------');
             for (VRT_Rental__c rent : sameVehicleRents){
                 system.debug(vehicle.Name + ' coste = ' + rent.VRT_DIV_TotalCost__c + 
                 '     del ' + rent.VRT_DAT_InitialDate__c + ' al ' + rent.VRT_DAT_FinalDate__c);
@@ -96,6 +84,11 @@ public with sharing class VRT_CLS_CheckVehicleDataDisponibility {
             system.debug('**********************************************************************************');
         }
 
+        system.debug('Lista Final filteredRentals-------------------------------------');
+        for(VRT_Rental__c rent : filteredRentals){
+            system.debug('coste = ' + rent.VRT_DIV_TotalCost__c + 
+            '     del ' + rent.VRT_DAT_InitialDate__c + ' al ' + rent.VRT_DAT_FinalDate__c);
+        }
         return filteredRentals;
 
     }
@@ -107,7 +100,21 @@ public with sharing class VRT_CLS_CheckVehicleDataDisponibility {
         // OJO!!!!! Si se insertan varios registros a la vez, habria que ver que no se solapan entre
         // ellos, 
 
-        selectFromRepeated(newRentals);
+        // List<VRT_Rental__c> filteredRentals = new List<VRT_Rental__c>();
+        // filteredRentals = selectFromRepeated(newRentals);
+        // system.debug('Lista Final filteredRentals ultima posicion y ole-------------------------------------');
+        // for(VRT_Rental__c rent : filteredRentals){
+        //     system.debug('coste = ' + rent.VRT_DIV_TotalCost__c + 
+        //     '     del ' + rent.VRT_DAT_InitialDate__c + ' al ' + rent.VRT_DAT_FinalDate__c);
+        // }
+
+        
+        newRentals = selectFromRepeated(newRentals);
+        system.debug('Lista Final filteredRentals ultima posicion y ole-------------------------------------');
+        for(VRT_Rental__c rent : newRentals){
+            system.debug('coste = ' + rent.VRT_DIV_TotalCost__c + 
+            '     del ' + rent.VRT_DAT_InitialDate__c + ' al ' + rent.VRT_DAT_FinalDate__c);
+        }
 
         system.debug ('Chekeando disponibilidad');
 
