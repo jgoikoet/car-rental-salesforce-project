@@ -50,23 +50,6 @@ public with sharing class VRT_CLS_LWC_CreateNewRent_Test {
             testVehics[1].Id,false,200);
         
         Test.stopTest();
-
-
-        // //*p* Test que lanza excepcion por fechas incorrectas
-        // Test.startTest();
-
-        // try{
-        // VRT_CLS_LWC_CreateNewRent.createNewRent(
-        //     Date.Today(),Date.Today()-2,testAcc.Id,
-        //     testVehics[2].Id,false,200);
-        //     Assert.fail('Se esperaba una excepcion debido a las fechas invalidas');
-        // } catch (AuraHandledException e){
-        //     Assert.isNotNull(e.getMessage(), 'El mensaje de la excepción no debe ser nulo');
-        //     system.debug('----------------Mensaje de error: ' + e.getMessage());
-        // }
-
-        // Test.stopTest();
-
     }
 
     @isTest
