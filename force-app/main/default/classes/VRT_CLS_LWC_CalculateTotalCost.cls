@@ -5,6 +5,8 @@ public with sharing class VRT_CLS_LWC_CalculateTotalCost {
     public static Decimal calculateTotalCost(Date inicio, Date fin,
         String tipoVehiculo,Id accountId){
 
+        //system.debug('----------Calculando coste-----------');
+        
         Decimal finalCost = 0;
 
         while (inicio <= fin){
