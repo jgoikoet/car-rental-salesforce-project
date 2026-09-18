@@ -108,7 +108,7 @@ public class VRT_CLS_CheckVehicleRevision_Test {
                                        ));
         vehicles.add(new VRT_Vehicle__c(VRT_TXT_ExternalId__c = 'TestVeh'+10, 
                                         VRT_TXT_LicensePlate__c = 'TST001'+0,
-                                        VRT_TXT_Brand__c = 'Opel', 
+                                        VRT_TXT_Brand__c = 'Suzuki', 
                                         VRT_SEL_VehicleType__c = 'Moto', 
                                         VRT_SEL_Status__c = 'Listo',  
                                         VRT_SEL_EnergyType__c = 'Diesel', 
@@ -131,9 +131,10 @@ public class VRT_CLS_CheckVehicleRevision_Test {
         Test.stopTest();
         
         // Verifica que los vehículos sean marcados correctamente para inspección
-        List<VRT_Vehicle__c> updatedVehicles = [SELECT Id, VRT_FLG_NeedsInspection__c FROM VRT_Vehicle__c];
-        System.assertEquals(2, updatedVehicles.size());
-        System.assertEquals(true, updatedVehicles[0].VRT_FLG_NeedsInspection__c);
-        System.assertEquals(true, updatedVehicles[1].VRT_FLG_NeedsInspection__c);
+        List<VRT_Vehicle__c> updatedVehicles = [SELECT Id FROM VRT_Vehicle__c WHERE VRT_FLG_NeedsInspection__c = true];        
+        
+        System.assertEquals(6, updatedVehicles.size(), 'Debe haber 6 vehiculos que necesitan inspeccion');
+
     }
+
 }

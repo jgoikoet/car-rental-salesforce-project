@@ -65,7 +65,7 @@ public with sharing class VRT_CLS_GetActiveRentals_Test {
 
         //*p* Deberia de haber un alquiler activo para la cuenta testAcc
         activeRentals = VRT_CLS_GetActiveRentals.getAlquileresActivos(testAcc.Id);
-        System.assertEquals(1, activeRentals.size(), 'Deberia de haber una alquiler activ0 para esta cuenta');
+        System.assertEquals(1, activeRentals.size(), 'Deberia de haber una alquiler activo para esta cuenta');
 
         Test.stopTest();
 
