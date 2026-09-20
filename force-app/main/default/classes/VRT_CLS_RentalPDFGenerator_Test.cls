@@ -2,7 +2,7 @@
 
 
 @isTest
-public with sharing class VRT_CLS_RentalPDFGenerator_Test {
+private class VRT_CLS_RentalPDFGenerator_Test {
     public VRT_CLS_RentalPDFGenerator_Test() {
 
     }
