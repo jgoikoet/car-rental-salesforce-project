@@ -2,7 +2,7 @@ import { LightningElement, api, wire } from 'lwc';
 import COCHES_1  from '@salesforce/resourceUrl/coches1';
 import { getURL } from './getVehicleURL';
 import { checkDates, setDateMesaggeColor, getCochesDisponibles } from './handleAlquiler'
-import getAlquileresActivos from '@salesforce/apex/AvailableAlquilers.getAlquileresActivos';
+import getAlquileresActivos from '@salesforce/apex/VRT_CLS_GetActiveRentals.getAlquileresActivos';
 import calculateTotalCost from '@salesforce/apex/VRT_CLS_LWC_CalculateTotalCost.calculateTotalCost';
 import calculateDiscount from '@salesforce/apex/VRT_CLS_LWC_CalculateTotalCost.calculateDiscount';
 import createNewRent from '@salesforce/apex/VRT_CLS_LWC_CreateNewRent.createNewRent';
