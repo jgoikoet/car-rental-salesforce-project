@@ -128,7 +128,8 @@ public class VRT_CLS_CheckVehicleRevision implements Database.Batchable<sObject>
             
             // Si es un coche, comprueba que hayan pasado 4 años
             if(veh.VRT_SEL_VehicleType__c == 'Coche' && yearsPassedFromFabrication >= 4) {
-                veh.VRT_FLG_NeedsInspection__c = true;List<VRT_Rental__c> r = [SELECT Id FROM VRT_Rental__c WHERE VRT_LKP_Vehicle__c = 'a01Qy000028ane5IAA'];
+                veh.VRT_FLG_NeedsInspection__c = true;
+                //List<VRT_Rental__c> r = [SELECT Id FROM VRT_Rental__c WHERE VRT_LKP_Vehicle__c = 'a01Qy000028ane5IAA'];
 
                 system.debug('Este coche no tiene fecha de ultima ITV y fue fabricado hace 4 o mas años asi que'+
                 '\nSe actualiza el campo de necesita ITV a TRUE'
