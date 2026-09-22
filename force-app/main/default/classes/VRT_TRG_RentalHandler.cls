@@ -92,10 +92,19 @@ public class VRT_TRG_RentalHandler {
     public void onBeforeUpdate(Map<Id, VRT_Rental__c> oldRentalsMap, Map<Id, VRT_Rental__c> newRentalsMap) {
         
         List<VRT_Rental__c> rentalsToCheck = new List<VRT_Rental__c>();
-        
+        List<Forbidden_Rental_Update_Event__e> events = new  List<Forbidden_Rental_Update_Event__e>();
+         
         for (Id rentalId : newRentalsMap.keySet()){
             VRT_Rental__c newRental = newRentalsMap.get(rentalId);
             VRT_Rental__c oldRental = oldRentalsMap.get(rentalId);
+
+            if(newRental.VRT_SEL_Status__c == 'En curso' && newRental.VRT_SEL_PaymentStatus__c != 'Pagado'){
+                
+                Forbidden_Rental_Update_Event__e event = new Forbidden_Rental_Update_Event__e();
+                event.AlquilerId__c = newRental.Id;
+                events.add(event);
+            }
+
             if (oldRental.VRT_SEL_Status__c == 'Cancelado' && newRental.VRT_SEL_Status__c != 'Cancelado'){
                 rentalsToCheck.add(newRental);
                 //newRental.addError('Este vehículo no está disponible en esas fechas');
@@ -104,5 +113,6 @@ public class VRT_TRG_RentalHandler {
         if (!rentalsToCheck.isEmpty()){
             VRT_CLS_CheckVehicleDataDisponibility.checkDisponibility(rentalsToCheck);
         }
+        if(!events.isEmpty()){EventBus.publish(events);}
     }
 }

@@ -1,4 +1,3 @@
-
 @isTest
 public with sharing class VRT_CLS_GetActiveRentals_Test {
     public VRT_CLS_GetActiveRentals_Test() {

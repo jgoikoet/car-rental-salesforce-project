@@ -125,6 +125,11 @@
             <field>VRT_FLG_NeedsInspection__c</field>
             <table>VRT_Vehicle__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>VRT_DAT_LastITV__c</field>
+            <table>VRT_Vehicle__c</table>
+        </columns>
         <masterLabel>Vehículos</masterLabel>
     </sections>
     <sections>

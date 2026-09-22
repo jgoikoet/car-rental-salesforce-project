@@ -1,4 +1,3 @@
-
 //esta clase se ha creado para cubrir el 100% del codigo
 //chekea de la funcion onBeforeUpdate de VRT_TRG_RentalHandler
 //que hace una verificacion muy rara:

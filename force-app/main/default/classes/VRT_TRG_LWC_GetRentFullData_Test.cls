@@ -1,4 +1,3 @@
-
 @isTest
 private class VRT_TRG_LWC_GetRentFullData_Test {
     public VRT_TRG_LWC_GetRentFullData_Test() {

@@ -1,4 +1,3 @@
-
 @isTest
 public with sharing class VRT_CLS_LWC_CreateNewRent_Test {
     public VRT_CLS_LWC_CreateNewRent_Test() {

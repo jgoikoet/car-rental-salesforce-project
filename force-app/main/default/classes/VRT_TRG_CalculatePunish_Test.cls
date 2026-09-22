@@ -1,4 +1,3 @@
-
 @isTest
 private class VRT_TRG_CalculatePunish_Test {
     public VRT_TRG_CalculatePunish_Test() {

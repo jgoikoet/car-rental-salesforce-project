@@ -219,7 +219,7 @@
                 <componentChartTheme>dark</componentChartTheme>
                 <componentType>Metric</componentType>
                 <decimalPrecision>-1</decimalPrecision>
-                <displayUnits>Thousands</displayUnits>
+                <displayUnits>Integer</displayUnits>
                 <groupingSortProperties/>
                 <header>Total Alquileres este mes</header>
                 <indicatorBreakpoint1>33.0</indicatorBreakpoint1>

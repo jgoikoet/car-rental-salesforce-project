@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Evento que lanza un flow que a su vez crea un log related  a un alquiler cuyo campo de estado se ha intentado updatear a &apos;En curso&apos; sin que le campo de estado de pago sea &apos;Pagado&apos;.</description>
+    <eventType>HighVolume</eventType>
+    <label>Forbidden Rental update</label>
+    <pluralLabel>Forbidden Rental updates</pluralLabel>
+    <publishBehavior>PublishImmediately</publishBehavior>
+</CustomObject>

@@ -1,4 +1,3 @@
-
 @isTest
 public  class VRT_CLS_CheckVehicleDisponibility_Test {
     

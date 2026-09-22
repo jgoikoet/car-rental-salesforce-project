@@ -12,7 +12,19 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>VRT_LKP_Rent_c__c</field>
+                <field>VRT_LKP_Rent__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>VRT_SEL_Event_Type__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>VRT_TXT_Description__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>VRT_SEL_Result__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

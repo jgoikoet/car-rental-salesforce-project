@@ -1,4 +1,3 @@
-
 @isTest
 public with sharing class VRT_CLS_checkVehDisponibilityForLWC_Test {
     

@@ -1,6 +1,3 @@
-
-
-
 @isTest
 private class VRT_CLS_RentalPDFGenerator_Test {
     public VRT_CLS_RentalPDFGenerator_Test() {

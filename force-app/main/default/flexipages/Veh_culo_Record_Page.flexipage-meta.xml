@@ -62,6 +62,12 @@
                 <identifier>RecordVRT_SEL_Combustible_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.VRT_DAT_LastITV__c</fieldItem>
+                <identifier>RecordVRT_DAT_LastITV__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-f02066c1-fdd7-4262-b125-f68aa4958839</name>
         <type>Facet</type>
     </flexiPageRegions>
