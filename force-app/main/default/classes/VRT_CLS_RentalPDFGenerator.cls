@@ -68,7 +68,7 @@ public with sharing class VRT_CLS_RentalPDFGenerator {
                     'Estimado/a ' + rent.VRT_LKP_Account__r.Name + ',<br/><br/>' +
                     'Le adjuntamos en este correo la factura en PDF correspondiente a su alquiler con referencia ' + rent.Name + '.<br/><br/>' +
                     'Muchas gracias por confiar en nosotros.<br/><br/>' +
-                    'Un saludo payaso.';
+                    'Un saludo.';
 
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
                 email.setToAddresses(new String[] {accountEmail});
