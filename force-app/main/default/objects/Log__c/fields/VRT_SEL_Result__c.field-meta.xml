@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VRT_SEL_Result__c</fullName>
+    <description>Nos dice si el evento ha sido exitoso o no.</description>
+    <label>Resultado</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Exito</fullName>
+                <default>false</default>
+                <label>Exito</label>
+            </value>
+            <value>
+                <fullName>Error</fullName>
+                <default>false</default>
+                <label>Error</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

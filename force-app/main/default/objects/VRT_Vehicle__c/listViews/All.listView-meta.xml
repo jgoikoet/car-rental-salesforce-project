@@ -5,6 +5,7 @@
     <columns>NAME</columns>
     <columns>VRT_FLG_NeedsInspection__c</columns>
     <columns>VRT_DAT_ManufacturedYear__c</columns>
+    <columns>VRT_DAT_LastITV__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>VRT_FLG_Available__c</field>

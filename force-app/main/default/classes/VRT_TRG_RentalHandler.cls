@@ -29,13 +29,22 @@ public class VRT_TRG_RentalHandler {
         List<Approval.ProcessSubmitRequest> needApproval = new List<Approval.ProcessSubmitRequest>();
         List<VRT_Rental__c> needApprovalStatusUpdate = new List<VRT_Rental__c>();
         List<VRT_Rental__c> dontNeedApproval = new List<VRT_Rental__c>();
+        List<Log__c> logs = new List<Log__c>();
 
         for (VRT_Rental__c rent : triggerNew){
+
+            Log__c log = new Log__c();
+            log.VRT_LKP_Rent__c = rent.Id;
+            log.VRT_SEL_Result__c = 'Exito';
+            log.VRT_SEL_Event_Type__c = 'Creación del Registro';
+
             if (rent.VRT_DIV_TotalCost__c > 3000){
+
+                log.VRT_TXT_Description__c = 'El alquiler se ha creado con exito pero esta pendiente de un proceso de aprobación';
+
                 Approval.ProcessSubmitRequest req = new Approval.ProcessSubmitRequest();
                 req.setObjectId(rent.Id);
                 req.setProcessDefinitionNameOrId('Alquiler_ammount');
-                //req.setSkipEntryCriteria(false);
                 needApproval.add(req);
 
                 VRT_Rental__c rentCopy = new VRT_Rental__c(
@@ -44,9 +53,14 @@ public class VRT_TRG_RentalHandler {
                 needApprovalStatusUpdate.add(rentCopy);
 
             } else {
+
+                log.VRT_TXT_Description__c = 'El alquiler se ha creado con exito.';
+
                 dontNeedApproval.add(rent);
             }
+            logs.add(log);
         }
+        insert logs;
 
         if(!needApprovalStatusUpdate.isEmpty()){
             update needApprovalStatusUpdate;

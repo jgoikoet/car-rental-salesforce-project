@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VRT_SEL_Event_Type__c</fullName>
+    <description>Descrive el tipo de Update, Creacion del registro, o diferentes updates.</description>
+    <label>Tipo de Evento</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Creación del Registro</fullName>
+                <default>false</default>
+                <label>Creación del Registro</label>
+            </value>
+            <value>
+                <fullName>Alquiler Completado</fullName>
+                <default>false</default>
+                <label>Alquiler Completado</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
