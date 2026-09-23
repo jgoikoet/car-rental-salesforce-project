@@ -13,6 +13,7 @@ public with sharing class VRT_CLS_RentalPDFGenerator {
     private static void createPDFAsync(List<Id> rentalIds){
 
         List<ContentVersion> cvList = new List<ContentVersion>();
+        List<Log__c> logs = new List<Log__c>();
 
         Map<Id, VRT_Rental__c> rentalsMaps = new Map<Id, VRT_Rental__c>([
             SELECT Id, Name, VRT_LKP_Account__r.VRT_TXT_Email__c, VRT_LKP_Account__r.Name
@@ -28,6 +29,13 @@ public with sharing class VRT_CLS_RentalPDFGenerator {
             pdfPage.getParameters().put('id', rentalId);
 
             Blob pdfBlob; //Binary Large Object
+
+            Log__c log = new Log__c();
+            log.VRT_LKP_Rent__c = rentalId;
+            log.VRT_SEL_Result__c = 'Exito';
+            log.VRT_SEL_Event_Type__c = 'Alquiler Completado';
+            log.VRT_TXT_Description__c = 'El Alquiler se ha completado con exito';
+            logs.add(log);
 
             try{
                 pdfBlob = pdfPage.getContentAsPDF();
@@ -55,7 +63,7 @@ public with sharing class VRT_CLS_RentalPDFGenerator {
 
         //CODIGO PARA ENVIAR EL CORREO ELECTRONICO
         List<Messaging.SingleEmailMessage> emailsToSEnd = new List<Messaging.SingleEmailMessage>();
-        
+               
         for (Id rentalID : rentalIds){
             
             VRT_Rental__c rent = rentalsMaps.get(rentalID);
@@ -86,7 +94,35 @@ public with sharing class VRT_CLS_RentalPDFGenerator {
             }
         }
         if(!emailsToSEnd.isEmpty()){
-            Messaging.sendEmail(emailsToSEnd);
+            
+            List<Messaging.sendEmailResult> emailResults = Messaging.sendEmail(emailsToSEnd,false);
+            //List<Log__c> logs = new List<Log__c>();
+
+            for (Integer i = 0; i < emailsToSEnd.size(); i++){
+
+                Messaging.sendEmailResult result = emailResults[i];
+                Log__c log = new Log__c();
+                log.VRT_LKP_Rent__c = rentalIds[i];
+                log.VRT_SEL_Event_Type__c = 'Alquiler Completado';
+                
+
+                if (result.isSuccess()){
+                    log.VRT_SEL_Result__c = 'Exito';
+                    log.VRT_TXT_Description__c = 'El email con la factura adjunta se ha enviado correctamente.';
+                } else {
+
+                    log.VRT_SEL_Result__c = 'Error';
+                    List<String> errores = new List<String>();
+                    
+                    for(Messaging.SendEmailError err : result.getErrors()){
+                        errores.add(err.getStatusCode() + ': ' + err.getMessage());
+                        log.VRT_TXT_Description__c = 'Email no enviado  | ' + String.join(errores, ' | ');
+                    }
+                }
+                logs.add(log);
+            }
+            Database.insert(logs, false);
+
         }
     }
 

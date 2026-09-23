@@ -39,18 +39,40 @@ private class VRT_CLS_RentalHandler_Weird_Test {
         testRent.VRT_SEL_Status__c = 'Cancelado';
         testRent.VRT_SEL_PaymentStatus__c = 'Pagado';
         insert testRent;
+
+        VRT_Rental__c testRentB= new VRT_Rental__c();
+        testRentB.VRT_LKP_Account__c = testAcc.Id;
+        testRentB.VRT_LKP_Vehicle__c = testCoche.Id;
+        testRentB.VRT_DAT_InitialDate__c = Date.today()+3;
+        testRentB.VRT_DAT_FinalDate__c = Date.today() + 4;
+        testRentB.VRT_SEL_Status__c = 'Reservado';
+        testRentB.VRT_SEL_PaymentStatus__c = 'Pendiente';
+        insert testRentB;
         
     }
 
     @isTest
     static void onBeforeUpdateTest(){
 
-        VRT_Rental__c testRent = [SELECT Id,VRT_SEL_Status__c FROM  VRT_Rental__c];
+        VRT_Rental__c testRentCancelado = [SELECT Id,VRT_SEL_Status__c FROM  VRT_Rental__c WHERE VRT_SEL_Status__c = 'Cancelado'];
+        VRT_Rental__c testRentReservado = [SELECT Id,VRT_SEL_Status__c FROM  VRT_Rental__c WHERE VRT_SEL_Status__c = 'Reservado'];
 
-        testRent.VRT_SEL_Status__c = 'Reservado';
+        testRentCancelado.VRT_SEL_Status__c = 'Reservado';
+        testRentReservado.VRT_SEL_Status__c = 'En curso';
 
         Test.startTest();
-        update testRent;
+        update testRentCancelado;
+
+        try{
+            update testRentReservado;
+            Assert.fail('Se esperaba que el update fuera bloqueado por la validqation rule');
+        } catch(Exception e){
+            Assert.isTrue(e.getMessage().contains('pendiente de pago no se puede iniciar'),
+            'Mensaje de error inesperado: ' + e.getMessage());
+
+            //system.debug('Error excepcion: ' + e.getMessage());
+        }
+
         Test.stopTest();
     }
 }
