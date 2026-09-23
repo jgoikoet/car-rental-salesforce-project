@@ -1,6 +1,18 @@
+/**
+ * @author		jgoikoet (42 Urduliz)
+ * @since		02/2023
+ * @desc		Class for checking vehicle disponibility
+ * @history		04/04/2026 - jgoikoet - Created class
+ * 				18/07/2026 - jgoikoet - Added'filterRepeated' method
+ *              07/09/2026 - jgoikoet - Refactoring deleting debug messages and adding apexDoc for methods
+ */
 public with sharing class VRT_CLS_RentalHAndlerHelperTotalCost {
 
-
+    /**
+     * @desc	Checks for Vehicles Overlapping by Date. If so selects the one who offers the most money
+     * @param	sameVehicleList: List of rents to insert
+     * @return	sameVehicleList: Filtered list
+     */
     private Map<Id, Integer> alquilersLastYear(Set<Id> accounts, List<VRT_Rental__c> alquileres){
 
         Map<Id, Integer> alquileresPorCuenta = new Map<Id,Integer>();

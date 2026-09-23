@@ -110,8 +110,6 @@ public class VRT_TRG_RentalHandlerHelper {
                 completedVehRentals.put(newRental.VRT_LKP_Vehicle__c, newRental);
                 
                 // Chequeo si hay retraso en la devolución
-                //system.debug('final date: ' +newRental.VRT_DAT_FinalDate__c);
-                //system.debug('Today: ' + Date.today());
                 if (newRental.VRT_DAT_FinalDate__c < Date.today()){
                     VRT_Rental__c rent = new VRT_Rental__c(
                         Id = newRental.Id,
@@ -124,8 +122,7 @@ public class VRT_TRG_RentalHandlerHelper {
             } else if(oldRental.VRT_SEL_Status__c == 'En_proceso_de _aprobacion' && newRental.VRT_SEL_Status__c == 'Reservado' && newRental.VRT_LKP_Vehicle__c != null){
                 approvedAlquilers.add(newRental);
             }
-        }
-        
+        }      
         if (!approvedAlquilers.isEmpty()){
             updateConditionVehicle(approvedAlquilers);
         }

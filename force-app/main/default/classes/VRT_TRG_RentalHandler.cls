@@ -107,7 +107,6 @@ public class VRT_TRG_RentalHandler {
 
             if (oldRental.VRT_SEL_Status__c == 'Cancelado' && newRental.VRT_SEL_Status__c != 'Cancelado'){
                 rentalsToCheck.add(newRental);
-                //newRental.addError('Este vehículo no está disponible en esas fechas');
             }
         }
         if (!rentalsToCheck.isEmpty()){
