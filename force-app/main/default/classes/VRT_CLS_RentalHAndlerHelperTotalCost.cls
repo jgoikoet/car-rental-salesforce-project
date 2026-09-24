@@ -1,7 +1,7 @@
 /**
  * @author		jgoikoet (42 Urduliz)
  * @since		02/2023
- * @desc		Class for checking vehicle disponibility
+ * @desc		Class for calculate the costs of rents
  * @history		04/04/2026 - jgoikoet - Created class
  * 				18/07/2026 - jgoikoet - Added'filterRepeated' method
  *              07/09/2026 - jgoikoet - Refactoring deleting debug messages and adding apexDoc for methods

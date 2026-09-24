@@ -1,6 +1,18 @@
+
+/**
+ * @author		jgoikoet (42 Urduliz)
+ * @since		02/2023
+ * @desc		Class for checking vehicle disponibility for the LWC console
+ * @history		15/06/2026 - jgoikoet - Created class
+ */
 public with sharing class VRT_CLS_checkVeicleDisponibilityForLWC {
     
-    
+    /**
+     * @desc	looks for available vehicles on the dates provided
+     * @param	fechaInicio: rent start date
+     * @param	fechaFin: rent finishing date
+     * @return	vehiculosDisponibles: list of abailable vehicles
+     */
     @AuraEnabled
     public static List<VRT_Vehicle__c> getDisponibleVehicles(Date fechaInicio, Date fechaFin){
         
