@@ -1,12 +1,23 @@
+/**
+ * @author		jgoikoet (42 Urduliz)
+ * @since		02/2023
+ * @desc		Calculates the total cost for a new rent in the LWC 'alquilerConsole'
+ * @history		15/06/2026 - jgoikoet - Created class
+ */
 public with sharing class VRT_CLS_LWC_CalculateTotalCost {
 
-    
+    /**
+     * @desc	Counts the number of rents for each account
+     * @param	inicio: start date
+     * @param	fin: finish date
+     * @param	tipoVehiculo: type of vehicle 'coche' or 'Moto'
+     * @param	accountId: Id of the related account
+     * @return	finalCost: final ammount
+     */
     @AuraEnabled(cacheable=true)
     public static Decimal calculateTotalCost(Date inicio, Date fin,
         String tipoVehiculo,Id accountId){
-
-        //system.debug('----------Calculando coste-----------');
-        
+       
         Decimal finalCost = 0;
 
         while (inicio <= fin){
@@ -30,11 +41,14 @@ public with sharing class VRT_CLS_LWC_CalculateTotalCost {
                 inicio = inicio.addDays(1);
 
         }
-        
-        
         return finalCost;
     }
 
+    /**
+     * @desc	Calculates discount if the customer has 3 or more completed rents in the last year
+     * @param	acc: Id of the account
+     * @return	Boolean: True or false depending in the number of completed rents last year
+     */
     @AuraEnabled(cacheable=true)
     public static Boolean calculateDiscount(Id acc){
         
@@ -48,7 +62,5 @@ public with sharing class VRT_CLS_LWC_CalculateTotalCost {
 
         if (totalRents > 2) {return true;}
         return false;
-    }
-
-    
+    }  
 }
