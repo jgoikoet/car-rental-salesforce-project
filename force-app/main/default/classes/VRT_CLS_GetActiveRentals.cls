@@ -1,3 +1,9 @@
+/**
+ * @author		jgoikoet (42 Urduliz)
+ * @since		02/2023
+ * @desc		Class for getting active rentals (not completed or canceled)
+ * @history		15/06/2026 - jgoikoet - Created class
+ */
 public with sharing class VRT_CLS_GetActiveRentals {
     
     @AuraEnabled(cacheable=true)

@@ -1,7 +1,22 @@
+/**
+ * @author		jgoikoet (42 Urduliz)
+ * @since		02/2023
+ * @desc		Class for create a new rental from the LWC 'alquilerConsole'
+ * @history		15/06/2026 - jgoikoet - Created class
+ */
 public with sharing class VRT_CLS_LWC_CreateNewRent {
     
-
-    @AuraEnabled//(cacheable=true) no se puede poner si vamos a hacer insert
+    /**
+     * @desc	Inserts a new rent record
+     * @param	inicio: start date
+     * @param	fin: finish date
+     * @param	accountId: Id of the related account
+     * @param	vehicleID: Id of the related vehicle
+     * @param	estadoPago: payment status
+     * @param	coste: cost of the rental
+     * @return	Boolean: True if the insert succcess
+     */
+    @AuraEnabled//(cacheable=true)
     public static Boolean createNewRent(
         Date inicio,
         Date fin,
@@ -10,7 +25,6 @@ public with sharing class VRT_CLS_LWC_CreateNewRent {
         Boolean estadoPago,
         Decimal coste
     ){   
-
         String pago;
         if(estadoPago){pago = 'Pagado';}
         else {pago = 'Pendiente';}
@@ -29,9 +43,7 @@ public with sharing class VRT_CLS_LWC_CreateNewRent {
             insert newRent;
             return true;
         } catch (DmlException e) {
-            System.debug('Error al insertar: ' + e.getMessage());
             throw new AuraHandledException('Fallo en Apex: ' + e.getMessage());
-            //return false;
         }
     }
 }
