@@ -9,9 +9,10 @@
 public with sharing class VRT_CLS_RentalHAndlerHelperTotalCost {
 
     /**
-     * @desc	Checks for Vehicles Overlapping by Date. If so selects the one who offers the most money
-     * @param	sameVehicleList: List of rents to insert
-     * @return	sameVehicleList: Filtered list
+     * @desc	Counts the number of rents for each account
+     * @param	accounts: Set of accounts to chek
+     * @param	alquileres: Set of rents to check
+     * @return	alquileresPorCuenta: Map with the number of rents (value) for each account(key)
      */
     private Map<Id, Integer> alquilersLastYear(Set<Id> accounts, List<VRT_Rental__c> alquileres){
 
@@ -26,6 +27,11 @@ public with sharing class VRT_CLS_RentalHAndlerHelperTotalCost {
         return alquileresPorCuenta;
     } 
 
+    /**
+     * @desc	Calculate the value of the rent based on the number of days,
+     *          time of the year, type of vehicle and customer loyalty
+     * @param	triggerNew: List of new rents
+     */
     public  void calculateCost(List<VRT_Rental__c> triggerNew){
 
         Set<Id> vehicles = new Set<Id>();
@@ -35,10 +41,9 @@ public with sharing class VRT_CLS_RentalHAndlerHelperTotalCost {
             vehicles.add(rent.VRT_LKP_Vehicle__c);
             accounts.add(rent.VRT_LKP_Account__c);
         }
-        system.debug('*-*-*-*-***-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-accounts: '+ accounts.size());
+
         Map<Id, VRT_Vehicle__c> vehiclesType = new Map<Id, VRT_Vehicle__c>(
-            [SELECT Id, VRT_SEL_VehicleType__c FROM VRT_Vehicle__c WHERE Id IN :vehicles]
-            );
+            [SELECT Id, VRT_SEL_VehicleType__c FROM VRT_Vehicle__c WHERE Id IN :vehicles]);
 
         List<VRT_Rental__c> alquileres = [SELECT Id, VRT_LKP_Account__c FROM VRT_Rental__c
             WHERE VRT_LKP_Account__c IN :accounts
