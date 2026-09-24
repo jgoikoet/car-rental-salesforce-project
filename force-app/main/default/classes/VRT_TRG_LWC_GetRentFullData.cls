@@ -1,3 +1,10 @@
+/**
+ * @author		jgoikoet (42 Urduliz)
+ * @since		02/2023
+ * @desc		Returns data from a s specifict rental by its name
+ * @history		15/06/2026 - jgoikoet - Created class
+ *              20/07/2026 - jgoikoet - Not in use for the moment
+ */
 public with sharing class VRT_TRG_LWC_GetRentFullData {
     
     public static VRT_Rental__c getRentFullData(String name){
