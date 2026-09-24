@@ -1,5 +1,17 @@
+/**
+ * @author		jgoikoet (42 Urduliz)
+ * @since		02/2023
+ * @desc		Creates a PDF invoice when a rental is completedand sends
+ *              an email to the customer wit this document attached
+ * @history		02/07/2026 - jgoikoet - Created class
+ */
 public with sharing class VRT_CLS_RentalPDFGenerator {
     
+
+    /**
+     * @desc	checks the list is not null or empty
+     * @param	rentalIds: List of rental Ids to chek
+     */
     @invocableMethod(label='Generar y Adjuntar PDF de Factura' description='Crea un PDF desde Visualforce y lo guarda en Files del Rental')
     public static void generateInvoicePDF(List<Id> rentalIds){
 
@@ -9,6 +21,11 @@ public with sharing class VRT_CLS_RentalPDFGenerator {
 
     }
 
+    /**
+     * @desc	creates the PDV invoice abd attachs it in the relared list of Files
+     *          also creates a Log related record
+     * @param	rentalIds: List of rental Ids to chek
+     */
     @future(callout=true)
     private static void createPDFAsync(List<Id> rentalIds){
 
@@ -25,7 +42,7 @@ public with sharing class VRT_CLS_RentalPDFGenerator {
 
         for (Id rentalId : rentalIds){
 
-            PageReference pdfPage = Page.FacturaRentalPDF;//la pagina de visualforce, PageReference referencia URLs
+            PageReference pdfPage = Page.FacturaRentalPDF;//visualforce page, PageReference references URLs
             pdfPage.getParameters().put('id', rentalId);
 
             Blob pdfBlob; //Binary Large Object
@@ -47,13 +64,13 @@ public with sharing class VRT_CLS_RentalPDFGenerator {
 
             pdfBlobsMap.put(rentalId, pdfBlob);
 
-            //Esto crea el archivo en la sección 'Files'
+            //creates the archive on 'Files'
             ContentVersion cv = new ContentVersion();
             cv.Title = 'Factura_Rental_' + rentalId + '.pdf';
             cv.PathOnClient = 'Factura_' + rentalId + '.pdf';
             cv.VersionData = pdfBlob;
 
-            //para relacionarla con la lista de files del registro
+            //relates the archive with the rental
             cv.FirstPublishLocationId = rentalId;
 
             cvList.add(cv);
@@ -61,7 +78,7 @@ public with sharing class VRT_CLS_RentalPDFGenerator {
 
         if(!cvList.isEmpty()){ insert cvList; }
 
-        //CODIGO PARA ENVIAR EL CORREO ELECTRONICO
+        //creates and sends the email
         List<Messaging.SingleEmailMessage> emailsToSEnd = new List<Messaging.SingleEmailMessage>();
                
         for (Id rentalID : rentalIds){
@@ -96,7 +113,6 @@ public with sharing class VRT_CLS_RentalPDFGenerator {
         if(!emailsToSEnd.isEmpty()){
             
             List<Messaging.sendEmailResult> emailResults = Messaging.sendEmail(emailsToSEnd,false);
-            //List<Log__c> logs = new List<Log__c>();
 
             for (Integer i = 0; i < emailsToSEnd.size(); i++){
 
@@ -122,7 +138,6 @@ public with sharing class VRT_CLS_RentalPDFGenerator {
                 logs.add(log);
             }
             Database.insert(logs, false);
-
         }
     }
 
