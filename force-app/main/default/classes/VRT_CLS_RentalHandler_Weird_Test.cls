@@ -65,7 +65,7 @@ private class VRT_CLS_RentalHandler_Weird_Test {
 
         try{
             update testRentReservado;
-            Assert.fail('Se esperaba que el update fuera bloqueado por la validqation rule');
+            Assert.fail('Se esperaba que el update fuera bloqueado por la validation rule');
         } catch(Exception e){
             Assert.isTrue(e.getMessage().contains('pendiente de pago no se puede iniciar'),
             'Mensaje de error inesperado: ' + e.getMessage());

@@ -18,8 +18,6 @@ public class VRT_TRG_RentalHandler {
         VRT_CLS_CheckVehicleDataDisponibility.checkDisponibility(triggerNew);
     }
     
-    
-    
     /**
      * @desc	After Insert Handler
      * @param	triggerNew: list of rentals inserted

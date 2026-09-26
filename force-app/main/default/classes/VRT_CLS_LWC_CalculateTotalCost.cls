@@ -58,8 +58,6 @@ public with sharing class VRT_CLS_LWC_CalculateTotalCost {
             AND VRT_SEL_Status__c = 'Completado'
         ];
 
-        system.debug('TotlRents: ' + totalRents);
-
         if (totalRents > 2) {return true;}
         return false;
     }  

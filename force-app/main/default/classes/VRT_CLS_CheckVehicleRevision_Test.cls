@@ -1,8 +1,6 @@
 @isTest
 public class VRT_CLS_CheckVehicleRevision_Test {
 
-
-
     @testSetup
     static void setup() {
 

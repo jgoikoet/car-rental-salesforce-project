@@ -13,17 +13,7 @@ export default class BuscadorGlobalFlota extends LightningElement {
     vehCargado = false;
     vehiculo = null;
     vehImgURL ='';
-    // vehiculos = [
-    //     'SEAT 127 Especial',
-    //     'SEAT 600 D',
-    //     'SEAT Ibiza TDI',
-    //     'Derbi Variant Botijo',
-    //     'Derbi Antorcha Tricampeona',
-    //     'Renault 5 Turbo'
-    // ];
 
-    
-    //sugerencias = this.vehiculos;
     
     get mostrarSugerencias(){
         return this.sugerencias.length > 0;
@@ -36,7 +26,7 @@ export default class BuscadorGlobalFlota extends LightningElement {
         this.valorBusqueda = event.target.value.toLowerCase();
 
         if (this.valorBusqueda.length < 3){
-            console.log("----------HIJOSDEPUTA----------");const vehiculoSeleccionado = event.currentTarget.dataset.value;
+            const vehiculoSeleccionado = event.currentTarget.dataset.value;
             this.sugerencias = [];
             return;
         }
@@ -69,7 +59,6 @@ export default class BuscadorGlobalFlota extends LightningElement {
         this.vehImgURL = getURL(this.vehiculo.VRT_TXT_Model__c);
         this.vehCargado = true;
 
-        console.log('Has elegido:', vehiculoSeleccionado);
-        console.log("----------Habla claro lidel----------");
+        //console.log('Has elegido:', vehiculoSeleccionado);
     }
 }

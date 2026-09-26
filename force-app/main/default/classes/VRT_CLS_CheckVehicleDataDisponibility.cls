@@ -21,8 +21,6 @@ public with sharing class VRT_CLS_CheckVehicleDataDisponibility {
         for (Integer j = 0; j < l - 1; j++){
             for(integer i = j + 1; i < l; i++)
             {
-                //system.debug('j = '+ j);
-                //system.debug('jos de puta');
                 if(sameVehicleList[j].VRT_DAT_InitialDate__c < sameVehicleList[i].VRT_DAT_FinalDate__c &&
                     sameVehicleList[j].VRT_DAT_FinalDate__c > sameVehicleList[i].VRT_DAT_InitialDate__c){
 
@@ -103,8 +101,6 @@ public with sharing class VRT_CLS_CheckVehicleDataDisponibility {
             system.debug('coste = ' + rent.VRT_DIV_TotalCost__c + 
             '     del ' + rent.VRT_DAT_InitialDate__c + ' al ' + rent.VRT_DAT_FinalDate__c);
         }
-
-        system.debug ('Chekeando disponibilidad');
 
         Set<Id> vehiclesInNewRentals =new  Set<Id>();
         Map<Id, List<VRT_Rental__c>> oldRentalsByVehicle = new Map<Id, List<VRT_Rental__c>>();

@@ -44,14 +44,5 @@ private class VRT_TRG_LWC_GetRentFullData_Test {
         Test.stopTest();
 
         System.assertEquals(rental.Name, testRental.name, 'El registro devuelto debe ser el mismo');
-
-        // System.debug(testRental.VRT_DAT_InitialDate__c);
-        // System.debug(testRental.VRT_DAT_FinalDate__c);
-        // System.debug(testRental.VRT_DIV_TotalCost__c);
-        // System.debug(testRental.VRT_SEL_Status__c);
-
     }
-
-
-
 }

@@ -51,13 +51,8 @@ public with sharing class VRT_CLS_checkVehDisponibilityForLWC_Test {
 
     @isTest
     static void checkDisponibility(){
-
-        //List<VRT_Vehicle__c> insertedVehics = [SELECT Id FROM VRT_Vehicle__c];
         
         List<VRT_Vehicle__c> availableVehics = new List<VRT_Vehicle__c>();
-
-        //*p/ Creamos 2 alquileres, uno con coche disponible y otro ocupado 
-
 
         Test.startTest();
 

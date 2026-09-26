@@ -55,7 +55,7 @@ public with sharing class VRT_CLS_RentalPDFGenerator {
             logs.add(log);
 
             try{
-                pdfBlob = pdfPage.getContentAsPDF();
+                pdfBlob = pdfPage.getContentAsPDF(); //esta invocacion provocaria un 'uncommitted work pending' si no fuese asincrona
             }
             catch (Exception e) {
                 // Bloque de escape para que los test de Apex no fallen (getContentAsPDF no corre en tests)

@@ -120,7 +120,6 @@ private class VRT_TRG_CalculatePunish_Test {
         update testRental;
         Test.stopTest();
 
-
         List<VRT_Rental__c> updatedRentals = [SELECT Id, VRT_DIV_penalty__c FROM VRT_Rental__c];
 
         for (VRT_Rental__c rent : updatedRentals){

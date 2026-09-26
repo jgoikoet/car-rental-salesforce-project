@@ -67,7 +67,7 @@ public with sharing class VRT_CLS_LWC_CreateNewRent_Test {
             Assert.fail('Se esperaba una excepcion debido a las fechas invalidas');
         } catch (AuraHandledException e){
             Assert.isNotNull(e.getMessage(), 'El mensaje de la excepción no debe ser nulo');
-            system.debug('----------------Mensaje de error: ' + e.getMessage());
+            //system.debug('----------------Mensaje de error: ' + e.getMessage());
         }
 
         Test.stopTest();

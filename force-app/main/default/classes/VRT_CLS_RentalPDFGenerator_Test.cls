@@ -56,13 +56,6 @@ private class VRT_CLS_RentalPDFGenerator_Test {
         System.assert(versions[0].VersionData.size() > 0, 'El contenido del PDF debe tener bytes');
         System.assertEquals('Factura_'+testRental.Id + '.pdf', versions[0].PathOnClient, 'Nombre de archivo esperado');
 
-        // System.debug('**********************************************************************************');
-        // for(ContentVersion ver : versions){
-        //     System.debug(ver.PathOnClient);
-        // }
-        // System.debug('**********************************************************************************');
-
-
 
         //Comprobacion de que el contentDocument esta enlazado a la account
         List<ContentDocumentLink> links = [
@@ -70,14 +63,6 @@ private class VRT_CLS_RentalPDFGenerator_Test {
             FROM ContentDocumentLink
             WHERE contentDocumentId = :versions[0].contentDocumentId
         ];
-
-        // System.debug('**********************************************************************************');
-        // for (ContentDocumentLink link : links){
-
-        //     System.debug(link.ContentDocument.Title + '      ' + link.LinkedEntityId);
-        //     System.debug('tipo de objeto: ' + link.LinkedEntityId.getSObjectType().getDescribe().getName());
-        // }
-        // System.debug('**********************************************************************************');
 
         System.assertEquals(2, links.size(), 'El archivo ha de estar enlazado a un registro y al User');
         // links[1] que es el que esta enlazado al rental, link[0] esta enlazado al User

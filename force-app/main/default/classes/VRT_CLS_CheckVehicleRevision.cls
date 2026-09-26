@@ -40,7 +40,6 @@ public class VRT_CLS_CheckVehicleRevision implements Database.Batchable<sObject>
 
             // *p* Calculations when the vehicle has a previous ITV date
             if (veh.VRT_DAT_LastITV__c != null){
-                system.debug('Fecha ultima ITV: '+ veh.VRT_DAT_LastITV__c);
 
                 //*p* Gettin years since last ITV
                 Integer yearsPassedFromLastITV = thisYear - veh.VRT_DAT_LastITV__c.year();

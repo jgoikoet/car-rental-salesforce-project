@@ -20,5 +20,4 @@ public with sharing class VRT_TRG_LWC_GetRentFullData {
         ];
         return rent;
     }
-
 }

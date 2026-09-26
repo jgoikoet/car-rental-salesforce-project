@@ -47,7 +47,7 @@ export function checkDates(fechaInicio, fechaFin){
             return 'OK';
         } else {
             returnedColor = errorColor;
-            return 'ERROR la fecha de inicio no puede ser posterior a la fecha de finalización payaso!';
+            return 'ERROR la fecha de inicio no puede ser posterior a la fecha de finalización!';
         }
 
     } else if(!fechaInicio && !fechaFin){

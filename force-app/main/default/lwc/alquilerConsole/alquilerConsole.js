@@ -11,7 +11,6 @@ import getVehicleData from '@salesforce/apex/VRT_CLS_LWC_GetRentFullData.getVehi
 import getAccountData from '@salesforce/apex/VRT_CLS_LWC_GetRentFullData.getAccountData';
 
 import { refreshApex } from '@salesforce/apex';
-//import { NavigationMixin } from 'lightning/navigation';
 
 export default class AlquilerConsole extends LightningElement {
     
@@ -40,13 +39,12 @@ export default class AlquilerConsole extends LightningElement {
     detailedAcount = null;
     detailedURL = null;
     colorTextoCabecera = 'slds-text-heading_medium slds-text-color_default';
-    //alquileresActivosHeadText = 'Alquileres Activos';
     newRentHeadText = 'Nuevo Alquiler';
     fechasMensaje = "Introduzca Fechas de inicio y fin del alquiler.";
     fechasMensajeClass = "slds-col slds-size_1-of-1 slds-var-p-around_x-small slds-text-color_default";
     criterioOrdenacion = "VRT_DIV_TotalCost__c";
     filtroAlquileres = "NONE";
-    hayVehiculos = "SELECCIONA UN VEHICULO SUBNORMAL";
+    hayVehiculos = "SELECCIONE UN VEHICULO POR FAVOR";
     estadoAlquiler = "Reservado";
 
     objetoWireRegenerable;//para actualizar la lista de alquileres
@@ -76,9 +74,9 @@ export default class AlquilerConsole extends LightningElement {
 
     setVehicleDisponibilityMessage(){
         if (this.cochesDisponibles && this.cochesDisponibles.length > 0){
-            this.hayVehiculos = "SELECCIONA UN VEHICULO SUBNORMAL";
+            this.hayVehiculos = "SELECCIONE UN VEHICULO POR FAVOR";
         } else {
-            this.hayVehiculos = "NO HAY VEHICULOS DISPONIBLES PARA ESTAS FECHAS, SELECCIONA OTRAS FECHAS.";
+            this.hayVehiculos = "NO HAY VEHICULOS DISPONIBLES PARA ESTAS FECHAS, SELECCIONE OTRAS FECHAS.";
         }
     }
 
@@ -104,7 +102,6 @@ export default class AlquilerConsole extends LightningElement {
 
                 });
                 this.cochesDisponibles = [...cochesDisponiblesconURL];
-                //console.log('cochesDisponibles:', JSON.stringify(this.cochesDisponibles, null, 2));
                 this.setVehicleDisponibilityMessage();
             })
             .catch(error => {
@@ -144,7 +141,7 @@ export default class AlquilerConsole extends LightningElement {
                 this.cochesDisponibles = null;
             });
         }  else {
-            console.log('HA entro en ELSE-------------------------');
+            //console.log('HA entro en ELSE-------------------------');
             this.cochesDisponibles = null;}
     }
     
@@ -258,7 +255,6 @@ export default class AlquilerConsole extends LightningElement {
         this.cargadoRentDetail = false;
         this.alquilerDetail = true;
         const rentName = event.target.dataset.name;
-        //await new Promise(resolve => setTimeout(resolve, 2000));
         this.detailedRent = await getRentFullData({ name: rentName });
         this.detailedVehicle = await getVehicleData({vehId: this.detailedRent.VRT_LKP_Vehicle__c});
         this.detailedAcount = await getAccountData({accId: this.detailedRent.VRT_LKP_Account__c});
@@ -269,7 +265,6 @@ export default class AlquilerConsole extends LightningElement {
     
     closeAlquilerDetail() {
         this.alquilerDetail = false;
-        //this.showList = true;
     }
     
     // Métodos para la Ventana 2
@@ -312,7 +307,6 @@ export default class AlquilerConsole extends LightningElement {
             this.alquileres = [...data];
             this.filteredAlquileres = this.alquileres;
             this.filteredAlquileres.sort((a, b) => b[this.criterioOrdenacion] - a[this.criterioOrdenacion]);
-            // this.alquileres.sort((a, b) => b[this.criterioOrdenacion] - a[this.criterioOrdenacion]);
             this.error = undefined;
         }
         else if (error) {this.alquileres = undefined; this.error = error;}

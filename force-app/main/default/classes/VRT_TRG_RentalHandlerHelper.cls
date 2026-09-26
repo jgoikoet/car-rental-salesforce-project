@@ -25,8 +25,6 @@ public class VRT_TRG_RentalHandlerHelper {
      * @desc	Update the vehicle condition based on number of uses
      * @param	triggerNew: list of vehicles inserted
      */ 
-    
-    
      public static void updateConditionVehicle(List<VRT_Rental__c> triggerNew) {
         Set<Id> vehicleIds = new Set<Id>(); 
         for(VRT_Rental__c rental : triggerNew){
@@ -89,7 +87,6 @@ public class VRT_TRG_RentalHandlerHelper {
             rental.VRT_DIV_TotalCost__c += penalty;
         }     
     }
-
     
     /**
      * @desc	Update the vehicle mileage based on rental duration and impose a penalty if necesary
@@ -170,8 +167,7 @@ public class VRT_TRG_RentalHandlerHelper {
             conditionResult = 'Bastante desgastado';
         } else if (numberOfUses > 1000) {
             conditionResult = 'Deplorable';
-        }
-        
+        }   
         return conditionResult;
     }
 }

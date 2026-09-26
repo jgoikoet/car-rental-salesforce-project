@@ -66,7 +66,6 @@ public class VRT_TRG_Rental_Test {
     static void testUpdateConditionVehicleRecienFabricado() {
         // Create a rental
 		VRT_Rental__c rental = createRentalTest(0);
-        system.debug('ME CAGON SORIA');
         Test.startTest();
 		insert rental;
         Test.stopTest();
@@ -127,7 +126,7 @@ public class VRT_TRG_Rental_Test {
 		insert rental;
         Test.stopTest();
         
-        // Get updated Vehicule
+        // Get updated Vehicle
         VRT_Vehicle__c vehUpdated = [SELECT Id, VRT_SEL_Condition__c FROM VRT_Vehicle__c WHERE VRT_TXT_ExternalId__c = 'TestVeh4' LIMIT 1];
         System.assertEquals('Deplorable', vehUpdated.VRT_SEL_Condition__c);
     }
@@ -143,7 +142,7 @@ public class VRT_TRG_Rental_Test {
         update rental;
         Test.stopTest();
         
-        // Get updated Vehicule
+        // Get updated Vehicle
         VRT_Vehicle__c vehUpdated = [SELECT Id, VRT_NUM_Mileage__c FROM VRT_Vehicle__c WHERE VRT_TXT_ExternalId__c = 'TestVeh0' LIMIT 1];
         System.assertEquals(600, vehUpdated.VRT_NUM_Mileage__c);
     }

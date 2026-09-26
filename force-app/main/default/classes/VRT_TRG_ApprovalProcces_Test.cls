@@ -1,4 +1,4 @@
-//ataca a rental handler triger
+//ataca a rental handler trigger
 @isTest
 private class VRT_TRG_ApprovalProcces_Test {
     public VRT_TRG_ApprovalProcces_Test() {
@@ -23,10 +23,7 @@ private class VRT_TRG_ApprovalProcces_Test {
             VRT_FLG_Available__c = true,
             VRT_NUM_Mileage__c = 100,
             VRT_DAT_ManufacturedYear__c = Date.today().addYears(-1)); 
-        insert testCoche;
-
-        
-        
+        insert testCoche;        
     }
 
     @isTest
@@ -67,9 +64,6 @@ private class VRT_TRG_ApprovalProcces_Test {
         }
         assert.areEqual(1,rentsToAproval, 'Debe haber un alquiler en proceso de aprobacion');
         assert.areEqual(1,rentsNotToAproval, 'Debe haber un alquiler sin proceso de aprobacion');
-
-        system.debug('VRT_SEL_Status__c: '+testRental[0].VRT_SEL_Status__c);
-
     }
 
     @isTest
@@ -94,8 +88,5 @@ private class VRT_TRG_ApprovalProcces_Test {
         Test.startTest();
         update testRental;
         Test.stopTest();
-
-        
     }
-
 }

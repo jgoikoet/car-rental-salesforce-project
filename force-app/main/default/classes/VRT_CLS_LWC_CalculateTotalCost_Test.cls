@@ -111,10 +111,10 @@ public with sharing class VRT_CLS_LWC_CalculateTotalCost_Test {
         Test.startTest();
 
         Boolean discount = VRT_CLS_LWC_CalculateTotalCost.calculateDiscount(bacalaoDeBilbaoId);
-        System.assertEquals(true, discount, 'El decuento deberia ser true');
+        System.assertEquals(true, discount, 'El descuento deberia ser true');
 
         discount = VRT_CLS_LWC_CalculateTotalCost.calculateDiscount(granujasSLId);
-        System.assertEquals(false, discount, 'El decuento deberia ser false');
+        System.assertEquals(false, discount, 'El descuento deberia ser false');
 
         Test.stopTest();
 
