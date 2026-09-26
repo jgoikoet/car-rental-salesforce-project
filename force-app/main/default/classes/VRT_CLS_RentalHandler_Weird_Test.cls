@@ -70,7 +70,7 @@ private class VRT_CLS_RentalHandler_Weird_Test {
             Assert.isTrue(e.getMessage().contains('pendiente de pago no se puede iniciar'),
             'Mensaje de error inesperado: ' + e.getMessage());
 
-            //system.debug('Error excepcion: ' + e.getMessage());
+            system.debug('Error excepcion: ' + e.getMessage());
         }
 
         Test.stopTest();

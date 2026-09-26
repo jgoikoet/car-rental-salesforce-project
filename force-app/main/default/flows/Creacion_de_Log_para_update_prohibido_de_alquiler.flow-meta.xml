@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>Crea un log para el objeto alquiler cuando se intenta hacer un update del campo &apos;Estado&apos; a &apos;En curso&apos; y el campo &apos;Estado de pago&apos; no es &apos;Pagado&apos;</description>
+    <environments>Default</environments>
+    <interviewLabel>Creacion de Log para update prohibido de alquiler {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Creacion de Log para update prohibido de alquiler</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Crea un log de que indica un intento de update prohibido del objeto Alquiler cuando se trata de de poner el campo estado en &apos;En curso&apos; y el campo de estado de pago no es &apos;Pagado&apos;</description>
+        <name>Generador_de_Log_de_error_para_alquiler</name>
+        <label>Generador de Log de error para alquiler</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>VRT_LKP_Rent__c</field>
+            <value>
+                <elementReference>$Record.AlquilerId__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>VRT_SEL_Event_Type__c</field>
+            <value>
+                <stringValue>Update</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>VRT_SEL_Result__c</field>
+            <value>
+                <stringValue>Error</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>VRT_TXT_Description__c</field>
+            <value>
+                <stringValue>Se ha intentado cambiar el campo &apos;Estado&apos; del alquiler a &apos;En curso&apos;, cuando el valor de el campo &apos;Estado de pago&apos; no es &apos;Pagado&apos;.</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Generador_de_Log_de_error_para_alquiler</targetReference>
+        </connector>
+        <flowRunAsUser>TriggeringUser</flowRunAsUser>
+        <object>Forbidden_Rental_Update_Event__e</object>
+        <triggerType>PlatformEvent</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -9,6 +9,7 @@
     <columns>VRT_SEL_Status__c</columns>
     <columns>VRT_SEL_PaymentStatus__c</columns>
     <columns>VRT_LKP_Vehicle__c</columns>
+    <columns>VRT_LKP_Account__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>
