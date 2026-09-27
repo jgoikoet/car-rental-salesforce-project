@@ -141,7 +141,6 @@ export default class AlquilerConsole extends LightningElement {
                 this.cochesDisponibles = null;
             });
         }  else {
-            //console.log('HA entro en ELSE-------------------------');
             this.cochesDisponibles = null;}
     }
     
