@@ -26,7 +26,6 @@ export default class BuscadorGlobalFlota extends LightningElement {
         this.valorBusqueda = event.target.value.toLowerCase();
 
         if (this.valorBusqueda.length < 3){
-            const vehiculoSeleccionado = event.currentTarget.dataset.value;
             this.sugerencias = [];
             return;
         }
